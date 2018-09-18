@@ -1,0 +1,5 @@
+# logging
+*.log
+
+# misc
+.DS_Store
