@@ -1,5 +1,12 @@
+# Visual Studio Ignore
+bin/
+obj/
+.vs/
+
+
 # logging
 *.log
 
 # misc
 .DS_Store
+.gitattributes
