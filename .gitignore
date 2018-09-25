@@ -1,3 +1,9 @@
+# Visual Studio
+.vc
+
+# Go server executable
+server
+
 # logging
 *.log
 
