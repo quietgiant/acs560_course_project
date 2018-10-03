@@ -1,11 +1,13 @@
 package main
 
 type Product struct {
-	Id       string  `json:"id"`
-	Name     string  `json:"name"`
-	Brand    string  `json:"brand"`
-	Size     string  `json:"size"`
-	Quantity int     `json:"quantity"`
-	Price    float32 `json:"price"`
-	IsActive bool    `json:"isActive"`
+	ID          string  `json:"id"`
+	UPC         string  `json:"upc"`
+	Name        string  `json:"name"`
+	Vendor      string  `json:"vendor"`
+	IsActive    bool    `json:"isActive"`
+	UnitCost    float32 `json:"unitCost"`
+	RetailPrice float32 `json:"retailPrice"`
+	Size        string  `json:"size"`
+	Quantity    int     `json:"quantity"`
 }
