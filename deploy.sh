@@ -1,1 +1,1 @@
-cp -r $GOPATH/src/inventory-management/ .
+git subtree push --prefix server heroku master
