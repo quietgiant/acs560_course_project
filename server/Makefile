@@ -1,3 +1,0 @@
-run:
-        $(GOBUILD) -o $(BINARY_NAME) -v ./...
-        ./$(BINARY_NAME)

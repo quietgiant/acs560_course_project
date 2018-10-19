@@ -1,16 +1,14 @@
-<<<<<<< HEAD
-# Visual Studio Ignore
+# visual studio 
 bin/
 obj/
 .vs/
-
-=======
-# Visual Studio
 .vc
 
-# Go server executable
+# build artifacts
+index.yaml
+
+# go server executable
 server
->>>>>>> c704e6ac7d6f4ea8fc48d377ef47fea2597d22b6
 
 # logging
 *.log

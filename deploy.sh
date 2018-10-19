@@ -1,1 +1,3 @@
-git subtree push --prefix server heroku master
+cd server
+gcloud app deploy
+cd ..
