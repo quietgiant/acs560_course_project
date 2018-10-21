@@ -6,6 +6,7 @@ obj/
 
 # build artifacts
 index.yaml
+.gcloudignore
 
 # go server executable
 server
