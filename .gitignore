@@ -4,6 +4,9 @@ obj/
 .vs/
 .vc
 
+# api dependencies
+server/vendor
+
 # build artifacts
 index.yaml
 .gcloudignore
