@@ -8,9 +8,6 @@ obj/
 index.yaml
 .gcloudignore
 
-# go server executable
-server
-
 # logging
 *.log
 
