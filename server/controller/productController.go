@@ -2,8 +2,8 @@ package controller
 
 import (
 	"encoding/json"
-	"inventory-management/server/datastore"
 	"inventory-management/server/model"
+	"inventory-management/server/store"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -11,7 +11,7 @@ import (
 
 var products []model.Product
 
-func GetAllProducts(dataManager datastore.DataManager) http.HandlerFunc {
+func GetAllProducts(dataManager store.DataManager) http.HandlerFunc {
 	return func(res http.ResponseWriter, req *http.Request) {
 		res.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(res).Encode(products)

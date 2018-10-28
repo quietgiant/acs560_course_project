@@ -1,6 +1,8 @@
 package config
 
 import (
+	"os"
+
 	"github.com/apex/log"
 )
 
@@ -10,7 +12,10 @@ type Configuration struct {
 }
 
 func GetAppConfiguration(env string) Configuration {
-	var port = "8080"
+	var port = os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 	var connectionString string
 	if env == "dev" {
 		connectionString = "postgres://localhost:5432/inventory-management?sslmode=disable"

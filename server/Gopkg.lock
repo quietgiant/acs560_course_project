@@ -45,6 +45,17 @@
   version = "v1.6.2"
 
 [[projects]]
+  digest = "1:6c41d4f998a03b6604227ccad36edaed6126c397e5d78709ef4814a1145a6757"
+  name = "github.com/jmoiron/sqlx"
+  packages = [
+    ".",
+    "reflectx",
+  ]
+  pruneopts = "UT"
+  revision = "d161d7a76b5661016ad0b085869f77fd410f3e6a"
+  version = "v1.2.0"
+
+[[projects]]
   branch = "master"
   digest = "1:a64e323dc06b73892e5bb5d040ced475c4645d456038333883f58934abbf6f72"
   name = "github.com/kr/logfmt"
@@ -83,6 +94,7 @@
     "github.com/apex/log",
     "github.com/apex/log/handlers/logfmt",
     "github.com/gorilla/mux",
+    "github.com/jmoiron/sqlx",
     "github.com/stretchr/testify/assert",
   ]
   solver-name = "gps-cdcl"
