@@ -7,7 +7,7 @@ import (
 
 	"inventory-management/server/config"
 	"inventory-management/server/controller"
-	"inventory-management/server/datastore/database"
+	"inventory-management/server/store/database"
 
 	"github.com/apex/log"
 	"github.com/apex/log/handlers/logfmt"
