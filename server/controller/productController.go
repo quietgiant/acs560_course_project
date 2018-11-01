@@ -2,8 +2,8 @@ package controller
 
 import (
 	"encoding/json"
-	"inventory-management/server/model"
-	"inventory-management/server/store"
+	"ez-inventory/server/model"
+	"ez-inventory/server/store"
 	"net/http"
 
 	"github.com/gorilla/mux"

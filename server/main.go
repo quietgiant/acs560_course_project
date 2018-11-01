@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"inventory-management/server/config"
-	"inventory-management/server/controller"
-	"inventory-management/server/store/database"
+	"ez-inventory/server/config"
+	"ez-inventory/server/controller"
+	"ez-inventory/server/store/database"
 
 	"github.com/apex/log"
 	"github.com/apex/log/handlers/logfmt"

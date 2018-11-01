@@ -1,7 +1,7 @@
 package database
 
 import (
-	"inventory-management/server/model"
+	"ez-inventory/server/model"
 
 	"github.com/jmoiron/sqlx"
 )

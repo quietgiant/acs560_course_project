@@ -1,4 +1,4 @@
-# Inventory Management API
+# EZ-Inventory API
 
 ## Getting Started
 

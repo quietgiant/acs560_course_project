@@ -2,7 +2,7 @@ package database
 
 import (
 	"database/sql"
-	"inventory-management/server/store"
+	"ez-inventory/server/store"
 
 	"github.com/apex/log"
 	"github.com/jmoiron/sqlx"
