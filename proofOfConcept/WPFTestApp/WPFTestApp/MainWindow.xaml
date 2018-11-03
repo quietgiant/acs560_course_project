@@ -22,7 +22,7 @@
 
             <TabItem x:Name="tab1" Header="ViewItems">
 
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="FirstTabText"   HorizontalAlignment="Center" VerticalAlignment="Center">
 
                 This is the first tab.
 
@@ -32,7 +32,7 @@
 
             <TabItem x:Name="tab2" Header="Tab Item 2">
 
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">This is the second tab.</TextBlock>
+                <TextBlock x:Name="SecondTabText"  HorizontalAlignment="Center" VerticalAlignment="Center">This is the second tab.</TextBlock>
 
             </TabItem>
 
