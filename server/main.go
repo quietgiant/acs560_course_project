@@ -7,7 +7,7 @@ import (
 
 	"ez-inventory/server/config"
 	"ez-inventory/server/controller"
-	"ez-inventory/server/store/database"
+	"ez-inventory/server/datastore/database"
 
 	"github.com/apex/log"
 	"github.com/apex/log/handlers/logfmt"

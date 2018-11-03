@@ -2,17 +2,20 @@ package controller
 
 import (
 	"encoding/json"
+	"ez-inventory/server/datastore"
 	"ez-inventory/server/model"
-	"ez-inventory/server/store"
 	"net/http"
 
+	"github.com/apex/log"
 	"github.com/gorilla/mux"
 )
 
 var products []model.Product
 
-func GetAllProducts(dataManager store.DataManager) http.HandlerFunc {
+func GetAllProducts(store datastore.ProductDatastore) http.HandlerFunc {
 	return func(res http.ResponseWriter, req *http.Request) {
+		products, err := store.GetAllProducts()
+		must(err)
 		res.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(res).Encode(products)
 	}
@@ -56,4 +59,10 @@ func Seed() {
 		IsActive:    true}
 
 	products = append(products, fakeProduct1, fakeProduct2)
+}
+
+func must(err error) {
+	if err != nil {
+		log.WithError(err).Info("Database query failed.")
+	}
 }

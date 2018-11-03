@@ -3,5 +3,5 @@ package datastore
 import "ez-inventory/server/model"
 
 type ProductDatastore interface {
-	AllProducts() (products []model.Product, err error)
+	GetAllProducts() (products []model.Product, err error)
 }

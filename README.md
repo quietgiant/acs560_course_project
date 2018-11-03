@@ -1,4 +1,4 @@
-# Inventory Management System
+# EZ-Inventory: Inventory Management System
 
 Let's do this.
 

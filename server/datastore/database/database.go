@@ -2,7 +2,7 @@ package database
 
 import (
 	"database/sql"
-	"ez-inventory/server/store"
+	"ez-inventory/server/datastore"
 
 	"github.com/apex/log"
 	"github.com/jmoiron/sqlx"
@@ -23,7 +23,7 @@ func Connect(connectionString string) *sql.DB {
 	return db
 }
 
-func New(db *sql.DB) store.DataManager {
+func New(db *sql.DB) datastore.DataManager {
 	var dbx = sqlx.NewDb(db, "postgres")
 	return struct {
 		*productStore
