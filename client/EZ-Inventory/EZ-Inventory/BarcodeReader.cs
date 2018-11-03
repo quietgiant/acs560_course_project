@@ -4,6 +4,9 @@ using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
+using System.IO;
+using System.Windows.Controls;
 
 namespace EZ_Inventory
 {
@@ -21,9 +24,33 @@ namespace EZ_Inventory
         {
             BarcodeReaderPortConnection.Open();
         }
-        public string readFromConnection()
+        public void activateBarcodeReadToTextBox(Action<string> callback)
         {
-           return BarcodeReaderPortConnection.ReadLine();
+
+            BarcodeReaderPortConnection.Open();
+            BarcodeReaderPortConnection.DiscardInBuffer();
+            Thread thread2 = new Thread(() =>
+            {
+              
+                Thread.Sleep(100);
+      
+                while (true)
+                {
+                   
+                    string UPC = BarcodeReaderPortConnection.ReadLine();
+                    callback(UPC);
+                }
+
+
+            });
+            thread2.IsBackground = true;
+            thread2.Start();
+      
+
+
         }
+
+   
+    
     }
 }

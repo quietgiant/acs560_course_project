@@ -21,34 +21,29 @@ namespace EZ_Inventory
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        //public void a()
-        //{
-        //    thread.sleep(100);
-        //    int i = 0;
-        //    while (true)
-        //    {
-        //        this.dispatcher.invoke(() =>
-        //        {
-        //            firsttabtext.text += "\na:" + i;
-
-        //        });
-
-        //        i++;
-        //    }
-        //}
+ 
+        public void callback(string upc)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                Input_ViewInventoryEnterUPC.Text = upc;
+            });
+          
+        }
+    
 
         private void Btn_ViewInventoryTab_Click(object sender, RoutedEventArgs e)
         {
             Tab_ViewInventory.IsSelected = true;
-            
-            //test productgroup
 
-            
+           
 
         }
         private void Btn_ViewRestockInventoryTab_Click(object sender, RoutedEventArgs e)
@@ -65,6 +60,12 @@ namespace EZ_Inventory
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             // filter the results by each new char
+        }
+
+        private void Input_ViewInventoryEnterUPC_GotFocus(object sender, RoutedEventArgs e)
+        {
+            BarcodeReader myBarcodeReader = new BarcodeReader("com4");
+            myBarcodeReader.activateBarcodeReadToTextBox(callback);
         }
     }
 }
