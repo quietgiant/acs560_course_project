@@ -39,6 +39,7 @@ namespace EZ_Inventory
                    
                     string UPC = BarcodeReaderPortConnection.ReadLine();
                     callback(UPC);
+                  
                 }
 
 

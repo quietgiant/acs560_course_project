@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EZ_Inventory"
         mc:Ignorable="d"
-  Title="MainWindow" Height="650" Width="950">
+  Title="MainWindow" Height="650" Width="950" ResizeMode="CanMinimize">
     <Window.Background>
         <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ScrollBarColorKey}}"/>
     </Window.Background>
@@ -35,10 +35,10 @@
                     <Expander Header="Advanced Search" Canvas.Left="39" Canvas.Top="99" Width="359" FontSize="14" Height="126">
                         <StackPanel Margin="10,4,0,0">
                             <TextBlock TextWrapping="Wrap" Margin="10,0,-0.2,0"><Run Text="Product Description:  "/><InlineUIContainer>
-                                    <TextBox Height="22" TextWrapping="Wrap" Text="" Width="200"/>
+                                    <TextBox x:Name="Input_ProductDescription" Height="22" TextWrapping="Wrap" Text="" Width="200"/>
                                 </InlineUIContainer></TextBlock>
                             <TextBlock TextWrapping="Wrap" Margin="10,0,0.2,0"><Run Text="Product Group:          "/><InlineUIContainer>
-                                    <ListBox Height="23" Width="200" RenderTransformOrigin="0.5,0.5">
+                                    <ListBox x:Name="Input_ProductGroup" Height="23" Width="200" RenderTransformOrigin="0.5,0.5">
                                         <ListBox.RenderTransform>
                                             <TransformGroup>
                                                 <ScaleTransform/>
@@ -59,6 +59,7 @@
                     <TextBlock Height="25" Canvas.Left="30" TextWrapping="Wrap" Text="Filter Inventory" Canvas.Top="10" Width="118" FontWeight="Bold" FontSize="16"/>
                     <TextBlock Height="25" Canvas.Left="39" TextWrapping="Wrap" Text="UPC:" Canvas.Top="56" Width="35" FontWeight="Bold" FontSize="14"/>
                     <TextBox x:Name="Input_ViewInventoryEnterUPC" Height="25" TextWrapping="Wrap" Text="" Width="115" Canvas.Left="79" Canvas.Top="55" TextChanged="TextBox_TextChanged" GotFocus="Input_ViewInventoryEnterUPC_GotFocus"/>
+                    <Button x:Name="Btn_AddItem" Content="Add New Item" Width="105" Canvas.Left="595" Canvas.Top="38" Height="35" Click="Btn_AddItem_Click"/>
 
                 </Canvas>
 

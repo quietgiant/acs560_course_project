@@ -67,5 +67,14 @@ namespace EZ_Inventory
             BarcodeReader myBarcodeReader = new BarcodeReader("com4");
             myBarcodeReader.activateBarcodeReadToTextBox(callback);
         }
+
+        private void Btn_AddItem_Click(object sender, RoutedEventArgs e)
+        {
+
+            AddNewItem AddItemWindow = new AddNewItem();
+            
+            AddItemWindow.ShowDialog();
+
+        }
     }
 }
