@@ -38,13 +38,18 @@ namespace EZ_Inventory
             });
           
         }
-    
+
 
         private void Btn_ViewInventoryTab_Click(object sender, RoutedEventArgs e)
         {
             Tab_ViewInventory.IsSelected = true;
+            ProductService getItems = new ProductService();
+           List<Product> myProducts =  getItems.getAllProducts();
+            //Grid_ItemsInInventory.DataContext = myProducts;
+            Grid_ItemsInInventory.ItemsSource = myProducts;
 
-           
+
+
 
         }
         private void Btn_ViewRestockInventoryTab_Click(object sender, RoutedEventArgs e)
