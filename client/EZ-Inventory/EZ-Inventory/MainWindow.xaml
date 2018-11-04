@@ -58,7 +58,7 @@
 
                     <TextBlock Height="25" Canvas.Left="30" TextWrapping="Wrap" Text="Filter Inventory" Canvas.Top="10" Width="118" FontWeight="Bold" FontSize="16"/>
                     <TextBlock Height="25" Canvas.Left="39" TextWrapping="Wrap" Text="UPC:" Canvas.Top="56" Width="35" FontWeight="Bold" FontSize="14"/>
-                    <TextBox x:Name="Input_ViewInventoryEnterUPC" Height="25" TextWrapping="Wrap" Text="" Width="115" Canvas.Left="79" Canvas.Top="55" TextChanged="TextBox_TextChanged" GotFocus="Input_ViewInventoryEnterUPC_GotFocus"/>
+                    <TextBox x:Name="Input_ViewInventoryEnterUPC" PreviewTextInput="NumberValidationTextBox" Height="25" TextWrapping="Wrap" Text="" Width="115" Canvas.Left="79" Canvas.Top="55" TextChanged="TextBox_TextChanged" GotFocus="Input_ViewInventoryEnterUPC_GotFocus"/>
                     <Button x:Name="Btn_AddItem" Content="Add New Item" Width="105" Canvas.Left="595" Canvas.Top="38" Height="35" Click="Btn_AddItem_Click"/>
 
                 </Canvas>

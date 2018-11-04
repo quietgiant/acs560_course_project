@@ -14,13 +14,13 @@
         <TextBox Height="26" TextWrapping="Wrap" Text="" Width="200" Canvas.Left="168" Canvas.Top="84"/>
         <TextBlock x:Name="label_Vendor" TextWrapping="Wrap" Text="Vendor:" VerticalAlignment="Top" Height="26" FontSize="14" Canvas.Left="29" Canvas.Top="139"/>
         <TextBlock x:Name="label_UnitCost" TextWrapping="Wrap" Text="Unit Cost:" VerticalAlignment="Top" Height="26" FontSize="14" Canvas.Left="29" Canvas.Top="195"/>
-        <TextBox x:Name="Input_UnitCost" Height="26" TextWrapping="Wrap" Text="" Width="200" Canvas.Left="168" Canvas.Top="195"/>
+        <TextBox x:Name="Input_UnitCost" Height="26" TextWrapping="Wrap" Width="200" Canvas.Left="168" Canvas.Top="195"/>
         <TextBlock x:Name="label_RetailPrice_" TextWrapping="Wrap" Text="Retail Price:" VerticalAlignment="Top" Height="26" FontSize="14" Canvas.Left="29" Canvas.Top="240"/>
         <TextBox x:Name="Input_RetailPrice" Height="26" TextWrapping="Wrap" Text="" Width="200" Canvas.Left="168" Canvas.Top="240"/>
-        <TextBlock x:Name="label_Size" TextWrapping="Wrap" Text="Size/Quanity:" VerticalAlignment="Top" Height="26" FontSize="14" Canvas.Left="29" Canvas.Top="283"/>
+        <TextBlock x:Name="label_Size"  TextWrapping="Wrap" Text="Size/Quanity:" VerticalAlignment="Top" Height="26" FontSize="14" Canvas.Left="29" Canvas.Top="283"/>
         <TextBox Height="26" TextWrapping="Wrap" Text="" Width="200" Canvas.Left="168" Canvas.Top="283"/>
         <ListBox Height="30" Width="200" Canvas.Left="168" Canvas.Top="135"/>
-        <Button x:Name="Button_AddItem" Content="Add Item" Width="100" Canvas.Left="153" Canvas.Top="351" Height="30"/>
+        <Button x:Name="Button_AddItem" Content="Add Item" Width="100" Canvas.Left="153" Canvas.Top="351" Height="30" Click="Button_AddItem_Click"/>
     </Canvas>
 
 
