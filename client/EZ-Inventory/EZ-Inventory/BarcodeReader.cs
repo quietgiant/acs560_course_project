@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.IO;
 using System.Windows.Controls;
+using System.Windows;
 
 namespace EZ_Inventory
 {
@@ -15,38 +16,59 @@ namespace EZ_Inventory
        public SerialPort BarcodeReaderPortConnection;
         public BarcodeReader(string comPort)
         {
-            BarcodeReaderPortConnection = new SerialPort();
-            var BaudRate = 9800;
-            BarcodeReaderPortConnection.PortName = comPort;
-            BarcodeReaderPortConnection.BaudRate = BaudRate;
+            if (comPort != null && comPort != "")
+            {
+                BarcodeReaderPortConnection = new SerialPort();
+                var BaudRate = 9800;
+                BarcodeReaderPortConnection.PortName = comPort;
+                BarcodeReaderPortConnection.BaudRate = BaudRate;
+            }
+         
         }
         public void openConnection()
         {
             BarcodeReaderPortConnection.Open();
         }
-        public void activateBarcodeReadToTextBox(Action<string> callback)
-        {
+        
 
-            BarcodeReaderPortConnection.Open();
-            BarcodeReaderPortConnection.DiscardInBuffer();
-            Thread thread2 = new Thread(() =>
+     
+        public void activateBarcodeReadToTextBox(TextBox ComPortInput, Action<string> callback)
+        {
+            try
             {
-              
-                Thread.Sleep(100);
-      
-                while (true)
+                BarcodeReaderPortConnection.Open();
+                BarcodeReaderPortConnection.DiscardInBuffer();
+                Thread thread2 = new Thread(() =>
                 {
-                   
-                    string UPC = BarcodeReaderPortConnection.ReadLine();
-                    callback(UPC);
-                  
+
+                    Thread.Sleep(100);
+
+                    while (true)
+                    {
+
+                        string UPC = BarcodeReaderPortConnection.ReadLine();
+                        callback(UPC);
+
+                    }
+
+
+                });
+                thread2.IsBackground = true;
+                thread2.Start();
+            }
+            catch(Exception e)
+            {
+                if (e.Message.Substring(0,8) == "The port") {
+                    string message = "EZinventory does not recognize the specified Com Port ("+ ComPortInput.Text + "). Please re-enter the comport in the settings menu. We are disabling the ComPort so you can continue to use our application.";
+                    string title = "No Barcode Scanner";
+                    MessageBoxResult result = MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                    ComPortInput.Text = "";
+                }
+                else {
+                    MessageBoxResult result = MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
-
-            });
-            thread2.IsBackground = true;
-            thread2.Start();
-      
+            }
 
 
         }

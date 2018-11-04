@@ -64,8 +64,12 @@ namespace EZ_Inventory
 
         private void Input_ViewInventoryEnterUPC_GotFocus(object sender, RoutedEventArgs e)
         {
-            BarcodeReader myBarcodeReader = new BarcodeReader("com4");
-            myBarcodeReader.activateBarcodeReadToTextBox(callback);
+            string ComPort = Input_ComPort.Text;
+            if (ComPort != null && ComPort != "")
+            {
+                BarcodeReader myBarcodeReader = new BarcodeReader(ComPort);
+                myBarcodeReader.activateBarcodeReadToTextBox(Input_ComPort, callback);
+            }
         }
 
         private void Btn_AddItem_Click(object sender, RoutedEventArgs e)
@@ -76,5 +80,11 @@ namespace EZ_Inventory
             AddItemWindow.ShowDialog();
 
         }
+
+        private void Btn_SettingsTab_Click(object sender, RoutedEventArgs e)
+        {
+            Tab_Settings.IsSelected = true;
+        }
+
     }
 }
