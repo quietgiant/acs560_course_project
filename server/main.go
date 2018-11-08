@@ -17,7 +17,6 @@ import (
 func main() {
 	setLoggingConfiguration()
 	var config = getApplicationConfiguration()
-	controller.Seed()
 
 	var db = database.Connect(config.DatabaseURL)
 	defer func() {
@@ -35,6 +34,7 @@ func main() {
 	var productRouter = apiRouter.PathPrefix("/product").Subrouter()
 	productRouter.HandleFunc("", controller.GetAllProducts(dataManager)).Methods("GET")
 	productRouter.HandleFunc("/{id}", controller.GetProductByID).Methods("GET")
+	productRouter.HandleFunc("", controller.CreateProduct(dataManager)).Methods("POST")
 
 	port := ":" + config.Port
 	log.Info("Listening on port " + port + "...")

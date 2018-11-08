@@ -7,62 +7,48 @@ import (
 	"net/http"
 
 	"github.com/apex/log"
-	"github.com/gorilla/mux"
 )
-
-var products []model.Product
 
 func GetAllProducts(store datastore.ProductDatastore) http.HandlerFunc {
 	return func(res http.ResponseWriter, req *http.Request) {
-		products, err := store.GetAllProducts()
-		must(err)
 		res.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(res).Encode(products)
+		products, err := store.GetAllProducts()
+		must(err, "GetAllProducts")
+		err2 := json.NewEncoder(res).Encode(products)
+		if err2 != nil {
+			http.Error(res, err2.Error(), http.StatusInternalServerError)
+		}
 	}
 }
 
 func GetProductByID(res http.ResponseWriter, req *http.Request) {
 	res.Header().Set("Content-Type", "application/json")
-	requestParameters := mux.Vars(req)
-	for _, item := range products {
-		if item.ID == requestParameters["id"] {
-			json.NewEncoder(res).Encode(item)
+	// to do
+}
+
+func CreateProduct(store datastore.ProductDatastore) http.HandlerFunc {
+	return func(res http.ResponseWriter, req *http.Request) {
+		var product model.Product
+		res.Header().Set("Content-Type", "application/json")
+		defer func() {
+			if err := req.Body.Close(); err != nil {
+				log.WithError(err).Error("Failed to close body")
+			}
+		}()
+		if err := json.NewDecoder(req.Body).Decode(&product); err != nil {
+			http.Error(res, err.Error(), http.StatusBadRequest)
 			return
 		}
+		if err := store.CreateProduct(product); err != nil {
+			http.Error(res, err.Error(), http.StatusBadRequest)
+			return
+		}
+		res.WriteHeader(http.StatusCreated)
 	}
 }
 
-func getProductData() []model.Product {
-	Seed()
-	return products
-}
-
-func Seed() {
-	fakeProduct1 := model.Product{
-		ID:          "1",
-		UPC:         "1234",
-		Name:        "That new shit",
-		Vendor:      "IceMan, Inc.",
-		Size:        "40oz",
-		Quantity:    1,
-		RetailPrice: 1.99,
-		IsActive:    true}
-
-	fakeProduct2 := model.Product{
-		ID:          "2",
-		UPC:         "9876",
-		Name:        "That new shit v2",
-		Vendor:      "SpiceBall LLC",
-		Size:        "20oz",
-		Quantity:    1,
-		RetailPrice: 2.99,
-		IsActive:    true}
-
-	products = append(products, fakeProduct1, fakeProduct2)
-}
-
-func must(err error) {
+func must(err error, message string) {
 	if err != nil {
-		log.WithError(err).Info("Database query failed.")
+		log.WithError(err).Info("Database query failed -> " + message)
 	}
 }
