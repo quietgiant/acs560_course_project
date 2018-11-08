@@ -31,7 +31,22 @@
             </TabItem>
             <TabItem x:Name="Tab_ViewInventory" Header="ViewItems">
                 <Canvas>
-                    <DataGrid x:Name="Grid_ItemsInInventory" Height="366" Canvas.Left="30" Canvas.Top="230" Width="670"/>
+                    <DataGrid Name="Grid_ItemsInInventory" 
+             xmlns:my="http://schemas.microsoft.com/wpf/2008/toolkit" 
+             CanUserAddRows="False" 
+             ItemsSource="{Binding}" 
+             AutoGenerateColumns="False"  IsReadOnly="True" Height="178" Width="595" Canvas.Left="55" Canvas.Top="207">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Path=ID}"/>
+                            <DataGridTextColumn Header="UPC" Binding="{Binding Path=UPC}"/>
+                            <DataGridTextColumn Header="Name/Description" Binding="{Binding Path=Name}"/>
+                            <DataGridTextColumn Header="Vendor" Binding="{Binding Path=Vendor}"/>
+                            <DataGridTextColumn Header="Active" Binding="{Binding Path=IsActive}"/>
+                            <DataGridTextColumn Header="Unit Cost" Binding="{Binding Path=UnitCost}"/>
+                            <DataGridTextColumn Header="Retail Price" Binding="{Binding Path=RetailPrice}"/>
+                            <DataGridTextColumn Header="In Stock" Binding="{Binding Path=QuantityInStock}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                     <Expander Header="Advanced Search" Canvas.Left="39" Canvas.Top="99" Width="359" FontSize="14" Height="126">
                         <StackPanel Margin="10,4,0,0">
                             <TextBlock TextWrapping="Wrap" Margin="10,0,-0.2,0"><Run Text="Product Description:  "/><InlineUIContainer>
@@ -58,7 +73,7 @@
 
                     <TextBlock Height="25" Canvas.Left="30" TextWrapping="Wrap" Text="Filter Inventory" Canvas.Top="10" Width="118" FontWeight="Bold" FontSize="16"/>
                     <TextBlock Height="25" Canvas.Left="39" TextWrapping="Wrap" Text="UPC:" Canvas.Top="56" Width="35" FontWeight="Bold" FontSize="14"/>
-                    <TextBox x:Name="Input_ViewInventoryEnterUPC" Height="25" TextWrapping="Wrap" Text="" Width="115" Canvas.Left="79" Canvas.Top="55" TextChanged="TextBox_TextChanged" GotFocus="Input_ViewInventoryEnterUPC_GotFocus"/>
+                    <TextBox x:Name="Input_ViewInventoryEnterUPC" PreviewTextInput="NumberValidationTextBox" Height="25" TextWrapping="Wrap" Text="" Width="115" Canvas.Left="79" Canvas.Top="55" TextChanged="TextBox_TextChanged" GotFocus="Input_ViewInventoryEnterUPC_GotFocus"/>
                     <Button x:Name="Btn_AddItem" Content="Add New Item" Width="105" Canvas.Left="595" Canvas.Top="38" Height="35" Click="Btn_AddItem_Click"/>
 
                 </Canvas>

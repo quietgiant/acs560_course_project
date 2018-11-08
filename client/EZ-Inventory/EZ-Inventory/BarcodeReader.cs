@@ -40,9 +40,7 @@ namespace EZ_Inventory
                 BarcodeReaderPortConnection.DiscardInBuffer();
                 Thread thread2 = new Thread(() =>
                 {
-
                     Thread.Sleep(100);
-
                     while (true)
                     {
 
@@ -50,7 +48,6 @@ namespace EZ_Inventory
                         callback(UPC);
 
                     }
-
 
                 });
                 thread2.IsBackground = true;

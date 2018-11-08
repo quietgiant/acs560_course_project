@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EZ_Inventory
+{
+    public class Product
+    {
+
+        public string ID { get; set; }
+        public string UPC { get; set; }
+        public string Name { get; set; }
+        public string Vendor { get; set; }
+        public bool IsActive { get; set; }
+        public double UnitCost { get; set; }
+        public double RetailPrice { get; set; }
+        public int QuantityInStock { get; set; }
+
+    }
+}
