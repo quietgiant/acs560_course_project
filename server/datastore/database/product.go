@@ -20,8 +20,11 @@ func (db *productStore) GetProductByID(id int64) (product model.Product, err err
 
 func (db *productStore) CreateProduct(product model.Product) (err error) {
 	_, err = db.Exec(
-		"INSERT INTO products(name, retailprice) VALUES($1, $2)",
+		"INSERT INTO products(upc, name, isactive, unitcost, retailprice) VALUES($1, $2, $3, $4, $5)",
+		product.UPC,
 		product.Name,
+		product.IsActive,
+		product.UnitCost,
 		product.RetailPrice,
 	)
 	return err
