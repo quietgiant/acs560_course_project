@@ -1,13 +1,16 @@
 # visual studio 
-bin/
-obj/
 .vs/
 .vc
 
 # api dependencies
 server/vendor
 
+# client dependencies
+client/EZ-Inventory/packages
+
 # build artifacts
+*bin/
+*obj/
 index.yaml
 .gcloudignore
 
