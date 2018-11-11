@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit;
 
 namespace EZ_Inventory
 {
@@ -22,15 +23,15 @@ namespace EZ_Inventory
     /// </summary>
     public partial class MainWindow : Window
     {
-
         
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
  
-        public void callback(string upc)
+        public void callback_Input_ViewInventoryEnterUPC(string upc)
         {
             this.Dispatcher.Invoke(() =>
             {
@@ -45,6 +46,7 @@ namespace EZ_Inventory
             Tab_ViewInventory.IsSelected = true;
             ProductService getItems = new ProductService();
            List<Product> myProducts =  getItems.getAllProducts();
+    
             //Grid_ItemsInInventory.DataContext = myProducts;
             Grid_ItemsInInventory.ItemsSource = myProducts;
 
@@ -67,10 +69,37 @@ namespace EZ_Inventory
         {
             // filter the results by each new char
         }
-        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        private void UPCInputValidaition(object sender, TextCompositionEventArgs e)
         {
+        int UPCLengthLimit = 13;
+        Regex regex = new Regex("[^0-9]+");
+            TextBox CurrentTextBox = (TextBox)sender;
+            int NumOfChar = CurrentTextBox.Text.Length;
+            if (NumOfChar >= UPCLengthLimit)
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = regex.IsMatch(e.Text);
+            }
+            
+        }
+        private void QuantityInputValidaition(object sender, TextCompositionEventArgs e)
+        {
+            int QuanityLength = 3;
             Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
+        IntegerUpDown CurrentTextBox = (IntegerUpDown)sender;
+            int NumOfChar = CurrentTextBox.Text.Length;
+            if (NumOfChar >= QuanityLength)
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = regex.IsMatch(e.Text);
+            }
+
         }
         private void Input_ViewInventoryEnterUPC_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -78,7 +107,7 @@ namespace EZ_Inventory
             if (ComPort != null && ComPort != "")
             {
                 BarcodeReader myBarcodeReader = new BarcodeReader(ComPort);
-                myBarcodeReader.activateBarcodeReadToTextBox(Input_ComPort, callback);
+                myBarcodeReader.activateBarcodeReadToTextBox(Input_ComPort, callback_Input_ViewInventoryEnterUPC);
             }
         }
 

@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace EZ_Inventory
 {
@@ -24,44 +26,134 @@ namespace EZ_Inventory
         {
             InitializeComponent();
         }
+        private void UPCInputValidaition(object sender, TextCompositionEventArgs e)
+        {
+            int UPCLengthLimit = 13;
+            Regex regex = new Regex("[^0-9]+");
+            TextBox CurrentTextBox = (TextBox)sender;
+            int NumOfChar = CurrentTextBox.Text.Length;
+            if (NumOfChar >= UPCLengthLimit)
+            {
 
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = regex.IsMatch(e.Text);
+            }
+
+        }
+        private void DoubleValidaition(object sender, TextCompositionEventArgs e)
+        {
+           
+            int UPCLengthLimit = 13;
+            Regex regex = new Regex("[^0-9]+");
+            TextBox CurrentTextBox = (TextBox)sender;
+            int NumOfChar = CurrentTextBox.Text.Length;
+            if (NumOfChar >= UPCLengthLimit)
+            {
+                e.Handled = true;
+            }
+            else if (e.Text == "." && !CurrentTextBox.Text.Contains("."))
+            {
+                e.Handled = false;
+
+            }
+            else if(CurrentTextBox.Text.Contains(".") && !regex.IsMatch(e.Text)) {
+                int numOfDigitsAfterDecimal = CurrentTextBox.Text.Length - CurrentTextBox.Text.IndexOf(".") - 1;
+                if (numOfDigitsAfterDecimal <2)
+                {
+                    e.Handled = false;
+                }
+                else
+                {
+                    e.Handled = true;
+                }
+            }
+            else
+            {
+                e.Handled = regex.IsMatch(e.Text);
+            }
+
+        }
+
+        private bool isTextboxValueAnInt(TextBox Input)
+        {
+            
+            return Int32.TryParse(Input.Text, out var Result);
+        }
+        private bool isTextboxValueAFloat(TextBox Input)
+        {
+
+            return float.TryParse(Input.Text, out var Result);
+        }
         private void Button_AddItem_Click(object sender, RoutedEventArgs e)
         {
-            int UPC;
-            double UnitCost;
-            double RetailPrice;
-            try
-            {
-                UPC = Int32.Parse(Input_UPC.Text);
-            }
-            catch (Exception ex)
-            {
+            int UPC =0;
+            float UnitCost = (float) 0.00;
+            float RetailPrice = (float)0.00;
+            string name = Input_Name.Text;
+            string vendor = "";
+
+      
+       
+
+            if (!isTextboxValueAnInt(Input_UPC)) {
                 Input_UPC.BorderBrush = System.Windows.Media.Brushes.Red;
                 string message = "UPC is not in the correct format";
                 string title = "Unable To Add Item";
                 MessageBoxResult result = MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                
             }
-            try
+            else
             {
-                UnitCost = double.Parse(Input_UnitCost.Text);
+                UPC = Int32.Parse(Input_UPC.Text);
             }
-            catch(Exception ex)
+
+
+            if (!isTextboxValueAFloat(Input_UnitCost))
             {
                 Input_UnitCost.BorderBrush = System.Windows.Media.Brushes.Red;
                 string message = "Unit Cost is not in the correct format";
                 string title = "Unable To Add Item";
                 MessageBoxResult result = MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            try
+            else
             {
-                RetailPrice = double.Parse(Input_RetailPrice.Text);
+                UnitCost = float.Parse(Input_UnitCost.Text);
             }
-            catch (Exception ex)
+
+            if (!isTextboxValueAFloat(Input_RetailPrice))
             {
-                Input_RetailPrice.BorderBrush = System.Windows.Media.Brushes.Red;
+                Input_UnitCost.BorderBrush = System.Windows.Media.Brushes.Red;
                 string message = "Retail Price is not in the correct format";
                 string title = "Unable To Add Item";
                 MessageBoxResult result = MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                RetailPrice = float.Parse(Input_RetailPrice.Text);
+            }
+            if (isTextboxValueAnInt(Input_UPC) && isTextboxValueAFloat(Input_UnitCost) && isTextboxValueAFloat(Input_RetailPrice))
+            {
+                Product NewProduct = new Product();
+                NewProduct.UPC = UPC;
+                NewProduct.Name = Input_Name.Text;
+
+                var jsonObject = new JObject();
+                jsonObject.Add("Float64", UnitCost);
+                NewProduct.UnitCost = jsonObject;
+
+                var jsonObject2 = new JObject();
+                jsonObject2.Add("Float64", RetailPrice);
+                NewProduct.RetailPrice = jsonObject2;
+
+                NewProduct.Vendor = vendor;
+                NewProduct.IsActive = true;
+
+                ProductService NewProductService = new ProductService();
+                NewProductService.CreateNewProduct(NewProduct);
+
             }
         }
     }
