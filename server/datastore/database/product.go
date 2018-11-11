@@ -14,8 +14,8 @@ func (db *productStore) GetAllProducts() (products []model.Product, err error) {
 	return products, db.Select(&products, "SELECT * FROM products;")
 }
 
-func (db *productStore) GetProductByID(id int64) (product model.Product, err error) {
-	return product, db.Get(&product, "SELECT * FROM products WHERE id = $1", id)
+func (db *productStore) GetProductByUPC(upc int64) (product model.Product, err error) {
+	return product, db.Get(&product, "SELECT * FROM products WHERE upc = $1", upc)
 }
 
 func (db *productStore) CreateProduct(product model.Product) (err error) {

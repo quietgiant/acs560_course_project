@@ -33,7 +33,7 @@ func main() {
 
 	var productRouter = apiRouter.PathPrefix("/product").Subrouter()
 	productRouter.HandleFunc("", controller.GetAllProducts(dataManager)).Methods("GET")
-	productRouter.HandleFunc("/{id}", controller.GetProductByID).Methods("GET")
+	productRouter.HandleFunc("/{id}", controller.GetProductByUPC(dataManager)).Methods("GET")
 	productRouter.HandleFunc("", controller.CreateProduct(dataManager)).Methods("POST")
 
 	port := ":" + config.Port
