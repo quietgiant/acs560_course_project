@@ -29,7 +29,21 @@ namespace EZ_Inventory
 
 
         }
-        
+        public String CreateNewProduct(Product NewProduct)
+        {
+
+            var Jsoncontent = JsonConvert.SerializeObject(NewProduct);
+
+            HttpResponseMessage response = productClient.PostAsync("api/product", new StringContent(Jsoncontent, Encoding.UTF8, "application/json")).Result;
+            var temp = response.Content.ReadAsStringAsync().Result;
+            var myStringStatus = JsonConvert.DeserializeObject<String>(response.Content.ReadAsStringAsync().Result);
+
+
+            // Call back that closes the form
+            return myStringStatus;
+
+
+        }
 
 
     }

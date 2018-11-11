@@ -4,13 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EZ_Inventory"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-  Title="MainWindow" Height="650" Width="950" ResizeMode="CanMinimize">
+  Title="MainWindow" Height="599.6" Width="950" ResizeMode="CanMinimize">
     <Window.Background>
         <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ScrollBarColorKey}}"/>
     </Window.Background>
     <Grid Margin="10,0,0.2,-0.2">
-        <TabControl x:Name="Tab_Main" BorderThickness="0" Margin="201,-2.5,0,0" Background="#FFE56464" >
+        <TabControl x:Name="Tab_Main" BorderThickness="0" Margin="201,-2.5,0,0" >
 
             <TabControl.Resources>
                 <Style TargetType="TabItem">
@@ -22,6 +23,12 @@
                     </Setter>
                 </Style>
             </TabControl.Resources>
+            <TabControl.Background>
+                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
+            </TabControl.Background>
+            <TabControl.BorderBrush>
+                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
+            </TabControl.BorderBrush>
             <TabItem x:Name="Tab_WelcomeScreen" Header="WelcomeScreen">
                 <Canvas>
                     <TextBlock x:Name="WelcomeText" Canvas.Left="105" Canvas.Top="266" FontSize="48" >
@@ -31,23 +38,24 @@
             </TabItem>
             <TabItem x:Name="Tab_ViewInventory" Header="ViewItems">
                 <Canvas>
+                    <TextBlock x:Name="ViewInventoryView_Title" Canvas.Left="10" Canvas.Top="10" HorizontalAlignment="Center" VerticalAlignment="Center" Height="28" Width="709" FontWeight="Bold" TextDecorations="Underline" FontSize="20" Text="View Inventory" TextAlignment="Center" />
                     <DataGrid Name="Grid_ItemsInInventory" 
              xmlns:my="http://schemas.microsoft.com/wpf/2008/toolkit" 
              CanUserAddRows="False" 
              ItemsSource="{Binding}" 
-             AutoGenerateColumns="False"  IsReadOnly="True" Height="178" Width="595" Canvas.Left="55" Canvas.Top="207">
+             AutoGenerateColumns="False"  IsReadOnly="True" Height="312" Width="661" Canvas.Left="39" Canvas.Top="230">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding Path=ID}"/>
                             <DataGridTextColumn Header="UPC" Binding="{Binding Path=UPC}"/>
                             <DataGridTextColumn Header="Name/Description" Binding="{Binding Path=Name}"/>
                             <DataGridTextColumn Header="Vendor" Binding="{Binding Path=Vendor}"/>
                             <DataGridTextColumn Header="Active" Binding="{Binding Path=IsActive}"/>
-                            <DataGridTextColumn Header="Unit Cost" Binding="{Binding Path=UnitCost}"/>
-                            <DataGridTextColumn Header="Retail Price" Binding="{Binding Path=RetailPrice}"/>
+                            <DataGridTextColumn Header="Unit Cost" Binding="{Binding Path=UnitCost[Float64]}"/>
+                            <DataGridTextColumn Header="Retail Price" Binding="{Binding Path=RetailPrice[Float64]}"/>
                             <DataGridTextColumn Header="In Stock" Binding="{Binding Path=QuantityInStock}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Expander Header="Advanced Search" Canvas.Left="39" Canvas.Top="99" Width="359" FontSize="14" Height="126">
+                    <Expander Header="Advanced Filter" Canvas.Left="39" Canvas.Top="99" Width="359" FontSize="14" Height="126">
                         <StackPanel Margin="10,4,0,0">
                             <TextBlock TextWrapping="Wrap" Margin="10,0,-0.2,0"><Run Text="Product Description:  "/><InlineUIContainer>
                                     <TextBox x:Name="Input_ProductDescription" Height="22" TextWrapping="Wrap" Text="" Width="200"/>
@@ -70,11 +78,9 @@
 
                         </StackPanel>
                     </Expander>
-
-                    <TextBlock Height="25" Canvas.Left="30" TextWrapping="Wrap" Text="Filter Inventory" Canvas.Top="10" Width="118" FontWeight="Bold" FontSize="16"/>
-                    <TextBlock Height="25" Canvas.Left="39" TextWrapping="Wrap" Text="UPC:" Canvas.Top="56" Width="35" FontWeight="Bold" FontSize="14"/>
-                    <TextBox x:Name="Input_ViewInventoryEnterUPC" PreviewTextInput="NumberValidationTextBox" Height="25" TextWrapping="Wrap" Text="" Width="115" Canvas.Left="79" Canvas.Top="55" TextChanged="TextBox_TextChanged" GotFocus="Input_ViewInventoryEnterUPC_GotFocus"/>
-                    <Button x:Name="Btn_AddItem" Content="Add New Item" Width="105" Canvas.Left="595" Canvas.Top="38" Height="35" Click="Btn_AddItem_Click"/>
+                    <TextBlock Height="25" Canvas.Left="39" TextWrapping="Wrap" Text="Filter by UPC:" Canvas.Top="70" Width="100" FontWeight="Bold" FontSize="14"/>
+                    <TextBox x:Name="Input_ViewInventoryEnterUPC" PreviewTextInput="UPCInputValidaition" Height="25" TextWrapping="Wrap" Text="" Width="115" Canvas.Left="144" Canvas.Top="70" TextChanged="TextBox_TextChanged" GotFocus="Input_ViewInventoryEnterUPC_GotFocus"/>
+                    <Button x:Name="Btn_AddItem" Content="Add New Item" Width="105" Canvas.Left="595" Canvas.Top="70" Height="40" Click="Btn_AddItem_Click"/>
 
                 </Canvas>
 
@@ -82,20 +88,24 @@
 
             <TabItem x:Name="Tab_RestockItem" Header="RestockItems">
                 <Canvas>
-                    <TextBlock x:Name="SecondTabText" Canvas.Left="142" Canvas.Top="61" >
-                    This screen will contain the UI for adding item quantity
-                    <LineBreak></LineBreak>
-                    You will be able to search for an item and view the current inventory and
-                    <LineBreak></LineBreak>
-                    you will beable to scan a quanity in or manually enter it in
-                    </TextBlock>
+                    <TextBlock x:Name="RestockView_Title" Canvas.Left="10" Canvas.Top="10" HorizontalAlignment="Center" VerticalAlignment="Center" Height="28" Width="709" FontWeight="Bold" TextDecorations="Underline" FontSize="20" Text="Restock An Item" TextAlignment="Center" />
+                    <TextBlock x:Name="RestockView_label_UPC" Canvas.Left="60" Canvas.Top="100" Height="20" Width="32" FontSize="14" >UPC:</TextBlock>
+                    <TextBlock x:Name="RestockView_label_Name" Canvas.Left="60" Canvas.Top="200" FontSize="14" Height="20" >Name/Description:</TextBlock>
+                    <TextBlock x:Name="RestockView_label_Vendor" Canvas.Left="60" Canvas.Top="125" FontSize="14" Height="20" >Vendor:</TextBlock>
+                    <TextBlock x:Name="RestockView_label_ActiveStatus" Canvas.Left="60" Canvas.Top="225" RenderTransformOrigin="0.564,-0.138" FontSize="14" Height="20" >Active</TextBlock>
+                    <TextBlock x:Name="RestockView_label_UnitCost" Canvas.Left="60" Canvas.Top="175" FontSize="14" Height="20" >Unit Cost:</TextBlock>
+                    <TextBlock x:Name="RestockView_label_RetailQuanity" Canvas.Left="60" Canvas.Top="150" FontSize="14" Height="20" >Retail Cost:</TextBlock>
+                    <TextBlock x:Name="RestockView_label_QuantityInStock" Canvas.Left="112" Canvas.Top="309" Height="25" Width="180" FontSize="16" Text="Units Currently In Stock" FontWeight="Bold" />
+                    <TextBlock x:Name="RestockView_label_QuantityInStock_Copy" Canvas.Left="435" Canvas.Top="309" Height="25" Width="180" FontSize="16" Text="Add Quantity" FontWeight="Bold" TextAlignment="Center" />
+                    <xctk:IntegerUpDown FormatString="N0" Value="0" PreviewTextInput="QuantityInputValidaition" DefaultValue="0"  Increment="1" Minimum="0"  Maximum="999" Canvas.Left="435" Canvas.Top="339" Height="78" Width="180" FontSize="36"/>
                 </Canvas>
             </TabItem>
 
             <TabItem x:Name="Tab_AuditItems" Header="AuditItems">
-
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">This is the Third tab.</TextBlock>
-
+                <Canvas>
+                    <TextBlock x:Name="AuditInventoryView_Title" Canvas.Left="10" Canvas.Top="10" HorizontalAlignment="Center" VerticalAlignment="Center" Height="28" Width="709" FontWeight="Bold" TextDecorations="Underline" FontSize="20" Text="Audit Inventory" TextAlignment="Center" />
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">This is the Third tab.</TextBlock>
+                </Canvas>
             </TabItem>
             <TabItem x:Name="Tab_Settings" Header="AuditItems">
                 <Canvas>
@@ -114,7 +124,7 @@
         <Button x:Name="Btn_ViewInventoryTab" Content="View Entire Inventory" HorizontalAlignment="Left" Height="60" Margin="30,50,0,0" VerticalAlignment="Top" Width="130" Click="Btn_ViewInventoryTab_Click"/>
         <Button x:Name="Btn_ViewRestockInventoryTab" Content="Restock An Item" HorizontalAlignment="Left" Height="60" Margin="30,150,0,0" VerticalAlignment="Top" Width="130" Click="Btn_ViewRestockInventoryTab_Click"/>
         <Button x:Name="Btn_AuditItemQuanityTab" Content="Audit Item Quanity" HorizontalAlignment="Left" Height="60" Margin="30,250,0,0" VerticalAlignment="Top" Width="130" Click="Btn_AuditItemQuanityTab_Click"/>
-        <Button x:Name="Btn_SettingsTab" Content="Settings" HorizontalAlignment="Left" Height="60" Margin="30,506,0,0" VerticalAlignment="Top" Width="130" Click="Btn_SettingsTab_Click"/>
+        <Button x:Name="Btn_SettingsTab" Content="Settings" HorizontalAlignment="Left" Height="60" Margin="30,440,0,0" VerticalAlignment="Top" Width="130" Click="Btn_SettingsTab_Click"/>
 
     </Grid>
 </Window>
