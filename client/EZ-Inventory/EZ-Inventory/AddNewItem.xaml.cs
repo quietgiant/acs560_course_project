@@ -26,6 +26,56 @@ namespace EZ_Inventory
         {
             InitializeComponent();
         }
+        private void UPCInputValidaition(object sender, TextCompositionEventArgs e)
+        {
+            int UPCLengthLimit = 13;
+            Regex regex = new Regex("[^0-9]+");
+            TextBox CurrentTextBox = (TextBox)sender;
+            int NumOfChar = CurrentTextBox.Text.Length;
+            if (NumOfChar >= UPCLengthLimit)
+            {
+
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = regex.IsMatch(e.Text);
+            }
+
+        }
+        private void DoubleValidaition(object sender, TextCompositionEventArgs e)
+        {
+           
+            int UPCLengthLimit = 13;
+            Regex regex = new Regex("[^0-9]+");
+            TextBox CurrentTextBox = (TextBox)sender;
+            int NumOfChar = CurrentTextBox.Text.Length;
+            if (NumOfChar >= UPCLengthLimit)
+            {
+                e.Handled = true;
+            }
+            else if (e.Text == "." && !CurrentTextBox.Text.Contains("."))
+            {
+                e.Handled = false;
+
+            }
+            else if(CurrentTextBox.Text.Contains(".") && !regex.IsMatch(e.Text)) {
+                int numOfDigitsAfterDecimal = CurrentTextBox.Text.Length - CurrentTextBox.Text.IndexOf(".") - 1;
+                if (numOfDigitsAfterDecimal <2)
+                {
+                    e.Handled = false;
+                }
+                else
+                {
+                    e.Handled = true;
+                }
+            }
+            else
+            {
+                e.Handled = regex.IsMatch(e.Text);
+            }
+
+        }
 
         private bool isTextboxValueAnInt(TextBox Input)
         {

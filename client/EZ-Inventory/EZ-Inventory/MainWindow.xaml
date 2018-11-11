@@ -109,6 +109,7 @@
             </TabItem>
             <TabItem x:Name="Tab_Settings" Header="AuditItems">
                 <Canvas>
+                    <TextBlock x:Name="SettingsView_Title" Canvas.Left="10" Canvas.Top="10" HorizontalAlignment="Center" VerticalAlignment="Center" Height="28" Width="709" FontWeight="Bold" TextDecorations="Underline" FontSize="20" Text="Settings" TextAlignment="Center" />
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Left="64" Canvas.Top="91" Height="27" Width="83" FontSize="18"><Run Text="ComPort"/><Run Text=":"/></TextBlock>
                     <TextBox x:Name="Input_ComPort" Height="27" TextWrapping="Wrap" Text="com4" Width="89" Canvas.Left="152" Canvas.Top="91" FontSize="16"/>
                 </Canvas>
