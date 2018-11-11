@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -23,14 +26,29 @@ namespace EZ_Inventory
     /// </summary>
     public partial class MainWindow : Window
     {
-        
-
+        private string SettingsFilePath = "EZ-InventorySettings.txt";
+        private BarcodeReader myBarcodeReader = null;
         public MainWindow()
         {
             InitializeComponent();
+            loadSettingsToSettingsTab();
         }
 
- 
+        private void loadSettingsToSettingsTab()
+        {
+            try
+            {
+                string readText = File.ReadAllText(SettingsFilePath);
+                JObject json = JObject.Parse(readText);
+       
+                Input_ComPort.Text = (string)json["ComPort"];
+            }
+            catch (Exception e)
+            {
+                Input_ComPort.Text = "com4";
+            }
+        }
+     
         public void callback_Input_ViewInventoryEnterUPC(string upc)
         {
             this.Dispatcher.Invoke(() =>
@@ -39,6 +57,7 @@ namespace EZ_Inventory
             });
           
         }
+   
 
 
         private void Btn_ViewInventoryTab_Click(object sender, RoutedEventArgs e)
@@ -106,7 +125,7 @@ namespace EZ_Inventory
             string ComPort = Input_ComPort.Text;
             if (ComPort != null && ComPort != "")
             {
-                BarcodeReader myBarcodeReader = new BarcodeReader(ComPort);
+                 myBarcodeReader = new BarcodeReader(ComPort);
                 myBarcodeReader.activateBarcodeReadToTextBox(Input_ComPort, callback_Input_ViewInventoryEnterUPC);
             }
         }
@@ -114,7 +133,7 @@ namespace EZ_Inventory
         private void Btn_AddItem_Click(object sender, RoutedEventArgs e)
         {
 
-            AddNewItem AddItemWindow = new AddNewItem();
+            AddNewItem AddItemWindow = new AddNewItem(Grid_ItemsInInventory, Input_ComPort);
             
             AddItemWindow.ShowDialog();
 
@@ -123,7 +142,36 @@ namespace EZ_Inventory
         private void Btn_SettingsTab_Click(object sender, RoutedEventArgs e)
         {
             Tab_Settings.IsSelected = true;
+            
         }
 
+        private void Btn_saveSettings_Click(object sender, RoutedEventArgs e)
+        {
+            SaveSettingsFromSettingsTab();
+        }
+        private void SaveSettingsFromSettingsTab()
+        {
+            JObject Settings = new JObject(
+    new JProperty("ComPort", Input_ComPort.Text));
+
+            using (StreamWriter file = File.CreateText(SettingsFilePath))
+            using (JsonTextWriter writer = new JsonTextWriter(file))
+            {
+                Settings.WriteTo(writer);
+            }
+        }
+
+        private void Input_ViewInventoryEnterUPC_LostFocus(object sender, RoutedEventArgs e)
+        {
+            try{
+                myBarcodeReader.CloseConnection();
+                myBarcodeReader.killBarcodeReaderThread();
+            }
+            catch(Exception ex)
+            {
+
+            }
+            
+        }
     }
 }

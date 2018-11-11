@@ -14,6 +14,7 @@ namespace EZ_Inventory
     class BarcodeReader
     {
        public SerialPort BarcodeReaderPortConnection;
+        Thread thread2;
         public BarcodeReader(string comPort)
         {
             if (comPort != null && comPort != "")
@@ -29,8 +30,14 @@ namespace EZ_Inventory
         {
             BarcodeReaderPortConnection.Open();
         }
-        
-
+        public void CloseConnection()
+        {
+            BarcodeReaderPortConnection.Dispose(); 
+        }
+        public void killBarcodeReaderThread()
+        {
+            thread2.Abort();
+        }
      
         public void activateBarcodeReadToTextBox(TextBox ComPortInput, Action<string> callback)
         {
@@ -38,15 +45,21 @@ namespace EZ_Inventory
             {
                 BarcodeReaderPortConnection.Open();
                 BarcodeReaderPortConnection.DiscardInBuffer();
-                Thread thread2 = new Thread(() =>
+                 thread2 = new Thread(() =>
                 {
                     Thread.Sleep(100);
                     while (true)
                     {
+                        try
+                        {
+                            string UPC = BarcodeReaderPortConnection.ReadLine();
+                            callback(UPC);
+                        }
+                        catch(Exception ex)
+                        {
 
-                        string UPC = BarcodeReaderPortConnection.ReadLine();
-                        callback(UPC);
-
+                        }
+                      
                     }
 
                 });

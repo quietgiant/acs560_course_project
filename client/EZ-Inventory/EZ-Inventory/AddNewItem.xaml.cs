@@ -22,9 +22,31 @@ namespace EZ_Inventory
     /// </summary>
     public partial class AddNewItem: Window
     {
-        public AddNewItem()
+        private DataGrid ItemsDatagrid;
+        private TextBox Input_ComPort;
+        private BarcodeReader myBarcodeReader;
+        public AddNewItem(DataGrid ItemsDatagrid,TextBox Input_ComPort)
         {
+            this.ItemsDatagrid = ItemsDatagrid;
+            this.Input_ComPort = Input_ComPort;
             InitializeComponent();
+        }
+        public void callback_Input_ViewInventoryEnterUPC(string upc)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                Input_UPC.Text = upc;
+            });
+
+        }
+        private void Input_UPC_GotFocus(object sender, RoutedEventArgs e)
+        {
+            string ComPort = Input_ComPort.Text;
+            if (ComPort != null && ComPort != "")
+            {
+                 myBarcodeReader = new BarcodeReader(ComPort);
+                myBarcodeReader.activateBarcodeReadToTextBox(Input_ComPort, callback_Input_ViewInventoryEnterUPC);
+            }
         }
         private void UPCInputValidaition(object sender, TextCompositionEventArgs e)
         {
@@ -87,6 +109,20 @@ namespace EZ_Inventory
 
             return float.TryParse(Input.Text, out var Result);
         }
+       
+        private void Input_UPC_LostFocus(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                myBarcodeReader.CloseConnection();
+                myBarcodeReader.killBarcodeReaderThread();
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+        }
         private void Button_AddItem_Click(object sender, RoutedEventArgs e)
         {
             int UPC =0;
@@ -140,13 +176,10 @@ namespace EZ_Inventory
                 NewProduct.UPC = UPC;
                 NewProduct.Name = Input_Name.Text;
 
-                var jsonObject = new JObject();
-                jsonObject.Add("Float64", UnitCost);
-                NewProduct.UnitCost = jsonObject;
+                NewProduct.UnitCost = UnitCost;
 
-                var jsonObject2 = new JObject();
-                jsonObject2.Add("Float64", RetailPrice);
-                NewProduct.RetailPrice = jsonObject2;
+           
+                NewProduct.RetailPrice = RetailPrice;
 
                 NewProduct.Vendor = vendor;
                 NewProduct.IsActive = true;
@@ -154,7 +187,17 @@ namespace EZ_Inventory
                 ProductService NewProductService = new ProductService();
                 NewProductService.CreateNewProduct(NewProduct);
 
+                ProductService getItems = new ProductService();
+                List<Product> myProducts = getItems.getAllProducts();
+
+                //Grid_ItemsInInventory.DataContext = myProducts;
+                ItemsDatagrid.ItemsSource = myProducts;
+
+
+                this.Close();
             }
         }
+
+        
     }
 }

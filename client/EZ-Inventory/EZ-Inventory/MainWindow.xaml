@@ -50,8 +50,8 @@
                             <DataGridTextColumn Header="Name/Description" Binding="{Binding Path=Name}"/>
                             <DataGridTextColumn Header="Vendor" Binding="{Binding Path=Vendor}"/>
                             <DataGridTextColumn Header="Active" Binding="{Binding Path=IsActive}"/>
-                            <DataGridTextColumn Header="Unit Cost" Binding="{Binding Path=UnitCost[Float64]}"/>
-                            <DataGridTextColumn Header="Retail Price" Binding="{Binding Path=RetailPrice[Float64]}"/>
+                            <DataGridTextColumn Header="Unit Cost" Binding="{Binding Path=UnitCost}"/>
+                            <DataGridTextColumn Header="Retail Price" Binding="{Binding Path=RetailPrice}"/>
                             <DataGridTextColumn Header="In Stock" Binding="{Binding Path=QuantityInStock}"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -79,7 +79,7 @@
                         </StackPanel>
                     </Expander>
                     <TextBlock Height="25" Canvas.Left="39" TextWrapping="Wrap" Text="Filter by UPC:" Canvas.Top="70" Width="100" FontWeight="Bold" FontSize="14"/>
-                    <TextBox x:Name="Input_ViewInventoryEnterUPC" PreviewTextInput="UPCInputValidaition" Height="25" TextWrapping="Wrap" Text="" Width="115" Canvas.Left="144" Canvas.Top="70" TextChanged="TextBox_TextChanged" GotFocus="Input_ViewInventoryEnterUPC_GotFocus"/>
+                    <TextBox x:Name="Input_ViewInventoryEnterUPC" PreviewTextInput="UPCInputValidaition" Height="25" TextWrapping="Wrap" Text="" Width="115" Canvas.Left="148" Canvas.Top="70" TextChanged="TextBox_TextChanged" GotFocus="Input_ViewInventoryEnterUPC_GotFocus" LostFocus="Input_ViewInventoryEnterUPC_LostFocus"/>
                     <Button x:Name="Btn_AddItem" Content="Add New Item" Width="105" Canvas.Left="595" Canvas.Top="70" Height="40" Click="Btn_AddItem_Click"/>
 
                 </Canvas>
@@ -110,8 +110,9 @@
             <TabItem x:Name="Tab_Settings" Header="AuditItems">
                 <Canvas>
                     <TextBlock x:Name="SettingsView_Title" Canvas.Left="10" Canvas.Top="10" HorizontalAlignment="Center" VerticalAlignment="Center" Height="28" Width="709" FontWeight="Bold" TextDecorations="Underline" FontSize="20" Text="Settings" TextAlignment="Center" />
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Left="64" Canvas.Top="91" Height="27" Width="83" FontSize="18"><Run Text="ComPort"/><Run Text=":"/></TextBlock>
-                    <TextBox x:Name="Input_ComPort" Height="27" TextWrapping="Wrap" Text="com4" Width="89" Canvas.Left="152" Canvas.Top="91" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Left="64" Canvas.Top="91" Height="27" Width="83" FontSize="18">COM Port: </TextBlock>
+                    <TextBox x:Name="Input_ComPort" Height="27" TextWrapping="Wrap"  Width="89" Canvas.Left="171" Canvas.Top="91" FontSize="16"/>
+                    <Button x:Name="SaveSettings" Height="50" Canvas.Left="293" Canvas.Top="488" Width="200" FontSize="24" Click="Btn_saveSettings_Click">Save Settings</Button>
                 </Canvas>
 
 

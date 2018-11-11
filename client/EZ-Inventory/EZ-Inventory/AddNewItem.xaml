@@ -13,7 +13,7 @@
         <TextBlock x:Name="label_UPC" TextWrapping="Wrap" VerticalAlignment="Top" Margin="29,38,292.6,0" Height="26" FontSize="14"><Run Text="UPC:"/></TextBlock>
 
         <TextBlock x:Name="label_Description" TextWrapping="Wrap" Text="Description/Name:" VerticalAlignment="Top" Height="26" FontSize="14" Canvas.Left="29" Canvas.Top="84"/>
-        <TextBox x:Name="Input_UPC" PreviewTextInput="UPCInputValidaition"  Height="26" TextWrapping="Wrap" Text="" Width="200" Canvas.Left="168" Canvas.Top="38"/>
+        <TextBox x:Name="Input_UPC" GotFocus="Input_UPC_GotFocus" PreviewTextInput="UPCInputValidaition"  Height="26" TextWrapping="Wrap" Text="" Width="200" Canvas.Left="168" Canvas.Top="38" LostFocus="Input_UPC_LostFocus"/>
         <TextBox x:Name="Input_Name" Height="26" TextWrapping="Wrap" Text="" Width="200" Canvas.Left="168" Canvas.Top="84"/>
         <TextBlock x:Name="label_Vendor" TextWrapping="Wrap" Text="Vendor:" VerticalAlignment="Top" Height="26" FontSize="14" Canvas.Left="29" Canvas.Top="139"/>
         <TextBlock x:Name="label_UnitCost" TextWrapping="Wrap" Text="Unit Cost:" VerticalAlignment="Top" Height="26" FontSize="14" Canvas.Left="29" Canvas.Top="195"/>
