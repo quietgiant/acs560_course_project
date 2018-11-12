@@ -53,6 +53,8 @@ namespace EZ_Inventory
                         try
                         {
                             string UPC = BarcodeReaderPortConnection.ReadLine();
+
+                           UPC = UPC.Replace("\r\n", "").Replace("\r", "").Replace("\n", "");
                             callback(UPC);
                         }
                         catch(Exception ex)

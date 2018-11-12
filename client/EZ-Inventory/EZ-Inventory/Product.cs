@@ -10,7 +10,7 @@ namespace EZ_Inventory
     {
 
         public int  ID { get; set; }
-        public int UPC { get; set; }
+        public long UPC { get; set; }
         public string Name { get; set; }
         public string Vendor { get; set; }
         public bool IsActive { get; set; }

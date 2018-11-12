@@ -44,7 +44,18 @@ namespace EZ_Inventory
 
 
         }
+        public Product GetProductByUPC(string UPC)
+        {
 
+
+            Product ProductsInStore = new Product();
+            HttpResponseMessage response = productClient.GetAsync("api/product/"+UPC).Result;
+            var temp = response.Content.ReadAsStringAsync().Result;
+            ProductsInStore = JsonConvert.DeserializeObject<Product>(response.Content.ReadAsStringAsync().Result);
+
+            return ProductsInStore;
+
+        }
 
     }
 }

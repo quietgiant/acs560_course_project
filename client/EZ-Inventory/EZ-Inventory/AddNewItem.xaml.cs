@@ -102,12 +102,12 @@ namespace EZ_Inventory
         private bool isTextboxValueAnInt(TextBox Input)
         {
             
-            return Int32.TryParse(Input.Text, out var Result);
+            return Int64.TryParse(Input.Text, out var Result);
         }
         private bool isTextboxValueAFloat(TextBox Input)
         {
 
-            return float.TryParse(Input.Text, out var Result);
+            return double.TryParse(Input.Text, out var Result);
         }
        
         private void Input_UPC_LostFocus(object sender, RoutedEventArgs e)
@@ -125,7 +125,7 @@ namespace EZ_Inventory
         }
         private void Button_AddItem_Click(object sender, RoutedEventArgs e)
         {
-            int UPC =0;
+            long UPC =0;
             float UnitCost = (float) 0.00;
             float RetailPrice = (float)0.00;
             string name = Input_Name.Text;
@@ -143,7 +143,7 @@ namespace EZ_Inventory
             }
             else
             {
-                UPC = Int32.Parse(Input_UPC.Text);
+                UPC = Int64.Parse(Input_UPC.Text);
             }
 
 

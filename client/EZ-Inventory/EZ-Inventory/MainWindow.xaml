@@ -80,7 +80,8 @@
                     </Expander>
                     <TextBlock Height="25" Canvas.Left="39" TextWrapping="Wrap" Text="Filter by UPC:" Canvas.Top="70" Width="100" FontWeight="Bold" FontSize="14"/>
                     <TextBox x:Name="Input_ViewInventoryEnterUPC" PreviewTextInput="UPCInputValidaition" Height="25" TextWrapping="Wrap" Text="" Width="115" Canvas.Left="148" Canvas.Top="70" TextChanged="TextBox_TextChanged" GotFocus="Input_ViewInventoryEnterUPC_GotFocus" LostFocus="Input_ViewInventoryEnterUPC_LostFocus"/>
-                    <Button x:Name="Btn_AddItem" Content="Add New Item" Width="105" Canvas.Left="595" Canvas.Top="70" Height="40" Click="Btn_AddItem_Click"/>
+                    <Button x:Name="Btn_ViewInvenory_AddItem" Content="Add New Item" Width="105" Canvas.Left="595" Canvas.Top="70" Height="40" Click="Btn_AddItem_Click"/>
+                    <Button x:Name="Btn_ViewInvenory_Search" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center" Width="78" Canvas.Left="273" Canvas.Top="70" Height="29" Click="Btn_ViewInvenory_Search_Click" />
 
                 </Canvas>
 
@@ -89,15 +90,24 @@
             <TabItem x:Name="Tab_RestockItem" Header="RestockItems">
                 <Canvas>
                     <TextBlock x:Name="RestockView_Title" Canvas.Left="10" Canvas.Top="10" HorizontalAlignment="Center" VerticalAlignment="Center" Height="28" Width="709" FontWeight="Bold" TextDecorations="Underline" FontSize="20" Text="Restock An Item" TextAlignment="Center" />
-                    <TextBlock x:Name="RestockView_label_UPC" Canvas.Left="60" Canvas.Top="100" Height="20" Width="32" FontSize="14" >UPC:</TextBlock>
-                    <TextBlock x:Name="RestockView_label_Name" Canvas.Left="60" Canvas.Top="200" FontSize="14" Height="20" >Name/Description:</TextBlock>
-                    <TextBlock x:Name="RestockView_label_Vendor" Canvas.Left="60" Canvas.Top="125" FontSize="14" Height="20" >Vendor:</TextBlock>
-                    <TextBlock x:Name="RestockView_label_ActiveStatus" Canvas.Left="60" Canvas.Top="225" RenderTransformOrigin="0.564,-0.138" FontSize="14" Height="20" >Active</TextBlock>
-                    <TextBlock x:Name="RestockView_label_UnitCost" Canvas.Left="60" Canvas.Top="175" FontSize="14" Height="20" >Unit Cost:</TextBlock>
-                    <TextBlock x:Name="RestockView_label_RetailQuanity" Canvas.Left="60" Canvas.Top="150" FontSize="14" Height="20" >Retail Cost:</TextBlock>
+                    <TextBlock x:Name="RestockView_label_UPC" Canvas.Left="60" Canvas.Top="70" Height="30" Width="170" FontSize="20" >UPC:</TextBlock>
+                    <TextBlock x:Name="RestockView_label_Name" Canvas.Left="60" Canvas.Top="105" FontSize="20" Height="30" Width="170" >Name/Description:</TextBlock>
+                    <TextBlock x:Name="RestockView_label_Vendor" Canvas.Left="60" Canvas.Top="140" FontSize="20" Height="30" Width="170" ><Run Text="Vendor:"/></TextBlock>
+                    <TextBlock x:Name="RestockView_label_ActiveStatus" Canvas.Left="60" Canvas.Top="251" RenderTransformOrigin="0.564,-0.138" FontSize="20" Height="30" Width="170" >Active</TextBlock>
+                    <TextBlock x:Name="RestockView_label_UnitCost" Canvas.Left="60" Canvas.Top="213" FontSize="20" Height="30" Width="170" >Unit Cost:</TextBlock>
+                    <TextBlock x:Name="RestockView_label_RetailQuanity" Canvas.Left="60" Canvas.Top="178" FontSize="20" Height="30" Width="170" >Retail Cost:</TextBlock>
                     <TextBlock x:Name="RestockView_label_QuantityInStock" Canvas.Left="112" Canvas.Top="309" Height="25" Width="180" FontSize="16" Text="Units Currently In Stock" FontWeight="Bold" />
                     <TextBlock x:Name="RestockView_label_QuantityInStock_Copy" Canvas.Left="435" Canvas.Top="309" Height="25" Width="180" FontSize="16" Text="Add Quantity" FontWeight="Bold" TextAlignment="Center" />
-                    <xctk:IntegerUpDown FormatString="N0" Value="0" PreviewTextInput="QuantityInputValidaition" DefaultValue="0"  Increment="1" Minimum="0"  Maximum="999" Canvas.Left="435" Canvas.Top="339" Height="78" Width="180" FontSize="36"/>
+                    <xctk:IntegerUpDown FormatString="N0" Value="0" PreviewTextInput="QuantityInputValidaition" DefaultValue="0"  Increment="1" Minimum="0"  Maximum="999" Canvas.Left="435" Canvas.Top="339" Height="78" Width="180" FontSize="48"/>
+                    <TextBox x:Name="Input_RestockView_UPC"  PreviewTextInput="UPCInputValidaition" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="70" FontSize="20"/>
+                    <TextBox x:Name="Input_RestockView_Name" Height="30" TextWrapping="Wrap" Width="300" Canvas.Left="251" Canvas.Top="105" FontSize="20" IsEnabled="False"/>
+                    <TextBox x:Name="Input_RestockView_RetailCost" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="177" FontSize="20" IsEnabled="False"/>
+                    <TextBox x:Name="Input_RestockView_UnitCost" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="213" FontSize="20" IsEnabled="False"/>
+                    <TextBox x:Name="Input_RestockView_Active" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="251" FontSize="20" IsEnabled="False"/>
+                    <TextBox x:Name="Input_RestockView_Vendor" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="139" FontSize="20" IsEnabled="False"/>
+                    <Button x:Name="Btn_Restock_SearchUPC" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Top" Width="97" Canvas.Left="454" Canvas.Top="70" Height="30" FontSize="16" Click="Btn_Restock_SearchUPC_Click"/>
+                    <TextBox x:Name="Input_RestockView_Instock" Height="78" TextWrapping="Wrap" Width="180" Canvas.Left="112" Canvas.Top="339" FontSize="48" IsEnabled="False" TextAlignment="Center"/>
+                    <Button x:Name="Btn_Restock_SearchUPC_Copy1" Content="Update Quanity" HorizontalAlignment="Left" VerticalAlignment="Top" Width="159" Canvas.Left="284" Canvas.Top="492" Height="50" FontSize="20" Click="Btn_Restock_SearchUPC_Click"/>
                 </Canvas>
             </TabItem>
 
@@ -110,13 +120,14 @@
             <TabItem x:Name="Tab_Settings" Header="AuditItems">
                 <Canvas>
                     <TextBlock x:Name="SettingsView_Title" Canvas.Left="10" Canvas.Top="10" HorizontalAlignment="Center" VerticalAlignment="Center" Height="28" Width="709" FontWeight="Bold" TextDecorations="Underline" FontSize="20" Text="Settings" TextAlignment="Center" />
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Left="64" Canvas.Top="91" Height="27" Width="83" FontSize="18">COM Port: </TextBlock>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Left="64" Canvas.Top="91" Height="27" Width="83" FontSize="18">COM Port:</TextBlock>
                     <TextBox x:Name="Input_ComPort" Height="27" TextWrapping="Wrap"  Width="89" Canvas.Left="171" Canvas.Top="91" FontSize="16"/>
                     <Button x:Name="SaveSettings" Height="50" Canvas.Left="293" Canvas.Top="488" Width="200" FontSize="24" Click="Btn_saveSettings_Click">Save Settings</Button>
                 </Canvas>
 
 
             </TabItem>
+            <Button x:Name="Btn_Restock_SearchUPC_Copy" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Top" Width="97" Height="30" FontSize="16" Click="Btn_Restock_SearchUPC_Click"/>
 
 
 

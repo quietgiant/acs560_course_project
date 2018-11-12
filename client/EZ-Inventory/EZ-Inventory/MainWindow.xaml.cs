@@ -173,5 +173,36 @@ namespace EZ_Inventory
             }
             
         }
+
+        private void Btn_Restock_SearchUPC_Click(object sender, RoutedEventArgs e)
+        {
+            ProductService getItems = new ProductService();
+            try
+            {
+                Product myProducts = getItems.GetProductByUPC(Input_RestockView_UPC.Text);
+                Input_RestockView_Name.Text = myProducts.Name;
+                Input_RestockView_RetailCost.Text = myProducts.RetailPrice.ToString();
+                Input_RestockView_UnitCost.Text = myProducts.UnitCost.ToString();
+                Input_RestockView_Vendor.Text = myProducts.Vendor.ToString();
+                Input_RestockView_Active.Text = myProducts.IsActive.ToString();
+                Input_RestockView_Instock.Text = myProducts.UnitCost.ToString();
+            }
+            catch (Exception ex) { }
+
+
+        }
+
+        private void Btn_ViewInvenory_Search_Click(object sender, RoutedEventArgs e)
+        {
+            ProductService getItems = new ProductService();
+            List<Product> myProducts = new List<Product>();
+            try
+            {
+                myProducts.Add(getItems.GetProductByUPC(Input_ViewInventoryEnterUPC.Text));
+            }
+            catch (Exception ex) { }
+            //Grid_ItemsInInventory.DataContext = myProducts;
+            Grid_ItemsInInventory.ItemsSource = myProducts;
+        }
     }
 }
