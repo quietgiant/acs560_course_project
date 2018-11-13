@@ -173,7 +173,7 @@ namespace EZ_Inventory
             if (isTextboxValueAnInt(Input_UPC) && isTextboxValueAFloat(Input_UnitCost) && isTextboxValueAFloat(Input_RetailPrice))
             {
                 Product NewProduct = new Product();
-                NewProduct.UPC = UPC;
+                NewProduct.UPC = UPC.ToString();
                 NewProduct.Name = Input_Name.Text;
 
                 NewProduct.UnitCost = UnitCost;

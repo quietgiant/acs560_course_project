@@ -55,9 +55,17 @@ namespace EZ_Inventory
             {
                 Input_ViewInventoryEnterUPC.Text = upc;
             });
-          
+
         }
-   
+        public void callback_Input_RestockViewEnterUPC(string upc)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                Input_RestockView_UPC.Text = upc;
+            });
+
+        }
+
 
 
         private void Btn_ViewInventoryTab_Click(object sender, RoutedEventArgs e)
@@ -127,6 +135,15 @@ namespace EZ_Inventory
             {
                  myBarcodeReader = new BarcodeReader(ComPort);
                 myBarcodeReader.activateBarcodeReadToTextBox(Input_ComPort, callback_Input_ViewInventoryEnterUPC);
+            }
+        }
+        private void Input_RestockViewEnterUPC_GotFocus(object sender, RoutedEventArgs e)
+        {
+            string ComPort = Input_ComPort.Text;
+            if (ComPort != null && ComPort != "")
+            {
+                myBarcodeReader = new BarcodeReader(ComPort);
+                myBarcodeReader.activateBarcodeReadToTextBox(Input_ComPort, callback_Input_RestockViewEnterUPC);
             }
         }
 
