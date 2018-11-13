@@ -2,7 +2,7 @@ package model
 
 type Product struct {
 	ID           int     `json:"id"`
-	UPC          int     `json:"upc"`
+	UPC          string  `json:"upc"`
 	Name         string  `json:"name"`
 	Vendor       string  `json:"vendor"`
 	IsActive     bool    `json:"isActive"`
