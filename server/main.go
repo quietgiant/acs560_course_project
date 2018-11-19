@@ -35,6 +35,8 @@ func main() {
 	productRouter.HandleFunc("", controller.GetAllProducts(dataManager)).Methods("GET")
 	productRouter.HandleFunc("/{id}", controller.GetProductByUPC(dataManager)).Methods("GET")
 	productRouter.HandleFunc("", controller.CreateProduct(dataManager)).Methods("POST")
+	productRouter.HandleFunc("", controller.UpdateProduct(dataManager)).Methods("PUT")
+	productRouter.HandleFunc("/{id}", controller.DeleteProduct(dataManager)).Methods("DELETE")
 
 	port := ":" + config.Port
 	log.Info("Listening on port " + port + "...")

@@ -3,6 +3,7 @@ package controller
 import (
 	"encoding/json"
 	"ez-inventory/server/model"
+	"ez-inventory/server/model/response"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -20,7 +21,7 @@ func TestGetAllProductsSuccess(t *testing.T) {
 	var mockedProducts = []model.Product{
 		{
 			ID:          1,
-			UPC:         1,
+			UPC:         "1",
 			Name:        "Cool Product",
 			UnitCost:    14.99,
 			RetailPrice: 19.99,
@@ -33,12 +34,10 @@ func TestGetAllProductsSuccess(t *testing.T) {
 	res, err := http.Get(server.URL)
 	assert.NoError(err)
 	assert.Equal(http.StatusOK, res.StatusCode)
-	var products []model.Product
-	_ = json.NewDecoder(res.Body).Decode(&products)
-	defer func() {
-		_ = res.Body.Close()
-	}()
-	assert.Equal(mockedProducts, products)
+	var productResponse response.ProductResponse
+	_ = json.NewDecoder(res.Body).Decode(&productResponse)
+	defer res.Body.Close()
+	assert.Equal(mockedProducts, productResponse.Products)
 }
 
 type mockProductDatastore struct {
@@ -57,5 +56,15 @@ func (m mockProductDatastore) GetProductByUPC(upc int64) (product model.Product,
 
 func (m mockProductDatastore) CreateProduct(product model.Product) (err error) {
 	var args = m.Called(product)
+	return args.Error(0)
+}
+
+func (m mockProductDatastore) UpdateProduct(product model.Product) (err error) {
+	var args = m.Called(product)
+	return args.Error(0)
+}
+
+func (m mockProductDatastore) DeleteProduct(upc int64) (err error) {
+	var args = m.Called(upc)
 	return args.Error(0)
 }
