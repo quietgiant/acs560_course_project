@@ -32,10 +32,11 @@ func (db *productStore) CreateProduct(product model.Product) (err error) {
 
 func (db *productStore) UpdateProduct(product model.Product) (err error) {
 	_, err = db.Exec(
-		"UPDATE products SET name=$1, unitcost=$2, retailprice=$3 where upc=$4;",
+		"UPDATE products SET name=$1, unitcost=$2, retailprice=$3, unitsinstock=$4 where upc=$5;",
 		product.Name,
 		product.UnitCost,
 		product.RetailPrice,
+		product.UnitsInStock,
 		product.UPC,
 	)
 	return err
