@@ -129,7 +129,7 @@ namespace EZ_Inventory
             float UnitCost = (float) 0.00;
             float RetailPrice = (float)0.00;
             string name = Input_Name.Text;
-            string vendor = "";
+            string vendor = Input_Vendor.Text;
 
       
        
@@ -138,7 +138,7 @@ namespace EZ_Inventory
                 Input_UPC.BorderBrush = System.Windows.Media.Brushes.Red;
                 string message = "UPC is not in the correct format";
                 string title = "Unable To Add Item";
-                MessageBoxResult result = MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
                 
             }
             else
@@ -152,7 +152,7 @@ namespace EZ_Inventory
                 Input_UnitCost.BorderBrush = System.Windows.Media.Brushes.Red;
                 string message = "Unit Cost is not in the correct format";
                 string title = "Unable To Add Item";
-                MessageBoxResult result = MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
@@ -164,13 +164,13 @@ namespace EZ_Inventory
                 Input_UnitCost.BorderBrush = System.Windows.Media.Brushes.Red;
                 string message = "Retail Price is not in the correct format";
                 string title = "Unable To Add Item";
-                MessageBoxResult result = MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
                 RetailPrice = float.Parse(Input_RetailPrice.Text);
             }
-            if (isTextboxValueAnInt(Input_UPC) && isTextboxValueAFloat(Input_UnitCost) && isTextboxValueAFloat(Input_RetailPrice))
+            if (isTextboxValueAnInt(Input_UPC) && Input_Name.Text != "" && isTextboxValueAFloat(Input_UnitCost) && isTextboxValueAFloat(Input_RetailPrice))
             {
                 Product NewProduct = new Product();
                 NewProduct.UPC = UPC.ToString();
@@ -185,16 +185,27 @@ namespace EZ_Inventory
                 NewProduct.IsActive = true;
 
                 ProductService NewProductService = new ProductService();
-                NewProductService.CreateNewProduct(NewProduct);
 
-                ProductService getItems = new ProductService();
-                List<Product> myProducts = getItems.getAllProducts();
+                Product ValidtateDoesNotExist = NewProductService.GetProductByUPC(Input_UPC.Text,false);
+                if (ValidtateDoesNotExist != null)
+                {
+                    string message = "This item already exists in our records. Please edit the item, if you intend to change the data.";
+                    string title = "UPC Already Exists";
+                    MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    NewProductService.CreateNewProduct(NewProduct);
 
-                //Grid_ItemsInInventory.DataContext = myProducts;
-                ItemsDatagrid.ItemsSource = myProducts;
+                    ProductService getItems = new ProductService();
+                    List<Product> myProducts = getItems.getAllProducts();
+
+                    //Grid_ItemsInInventory.DataContext = myProducts;
+                    ItemsDatagrid.ItemsSource = myProducts;
 
 
-                this.Close();
+                    this.Close();
+                }
             }
         }
 

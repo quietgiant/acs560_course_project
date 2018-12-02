@@ -43,7 +43,7 @@
              xmlns:my="http://schemas.microsoft.com/wpf/2008/toolkit" 
              CanUserAddRows="False" 
              ItemsSource="{Binding}" 
-             AutoGenerateColumns="False"  IsReadOnly="True" Height="312" Width="661" Canvas.Left="39" Canvas.Top="230">
+             AutoGenerateColumns="False"  IsReadOnly="True" Height="328" Width="709" Canvas.Left="10" Canvas.Top="230">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding Path=ID}"/>
                             <DataGridTextColumn Header="UPC" Binding="{Binding Path=UPC}"/>
@@ -52,7 +52,7 @@
                             <DataGridTextColumn Header="Active" Binding="{Binding Path=IsActive}"/>
                             <DataGridTextColumn Header="Unit Cost" Binding="{Binding Path=UnitCost}"/>
                             <DataGridTextColumn Header="Retail Price" Binding="{Binding Path=RetailPrice}"/>
-                            <DataGridTextColumn Header="In Stock" Binding="{Binding Path=QuantityInStock}"/>
+                            <DataGridTextColumn Header="In Stock" Binding="{Binding Path=UnitsInStock}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Expander Header="Advanced Filter" Canvas.Left="39" Canvas.Top="99" Width="359" FontSize="14" Height="126">
@@ -107,7 +107,7 @@
                     <TextBox x:Name="Input_RestockView_Vendor" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="139" FontSize="20" IsEnabled="False"/>
                     <Button x:Name="Btn_RestockView_SearchUPC" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Top" Width="97" Canvas.Left="454" Canvas.Top="70" Height="30" FontSize="16" Click="Btn_Restock_SearchUPC_Click"/>
                     <TextBox x:Name="Input_RestockView_Instock" Height="78" TextWrapping="Wrap" Width="180" Canvas.Left="112" Canvas.Top="339" FontSize="48" IsEnabled="False" TextAlignment="Center"/>
-                    <Button x:Name="Btn_RestockView_UpdateQuantity" Content="Update Quanity" HorizontalAlignment="Left" VerticalAlignment="Top" Width="159" Canvas.Left="284" Canvas.Top="492" Height="50" FontSize="20" Click="Btn_RestockView_UpdateQuantity_Click"/>
+                    <Button x:Name="Btn_RestockView_UpdateQuantity" Content="Update Quanity" HorizontalAlignment="Left" VerticalAlignment="Top" Width="159" Canvas.Left="284" Canvas.Top="492" Height="50" FontSize="20" Click="Btn_RestockView_UpdateQuantity_Click" Visibility="Hidden"/>
                 </Canvas>
             </TabItem>
 
@@ -131,7 +131,32 @@
                     <TextBox x:Name="Input_AuditInventoryView_Vendor" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="139" FontSize="20" IsEnabled="False"/>
                     <Button x:Name="Btn_AuditInventoryView_SearchUPC" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Top" Width="97" Canvas.Left="454" Canvas.Top="70" Height="30" FontSize="16" Click="Btn_AuditInventoryView_SearchUPC_Click"/>
                     <TextBox x:Name="Input_AuditInventoryView_Instock" Height="78" TextWrapping="Wrap" Width="180" Canvas.Left="112" Canvas.Top="339" FontSize="48" IsEnabled="False" TextAlignment="Center"/>
-                    <Button x:Name="Btn_AuditInventoryView_AuditInventory" Content="Audit Inventory" HorizontalAlignment="Left" VerticalAlignment="Top" Width="159" Canvas.Left="284" Canvas.Top="492" Height="50" FontSize="20" Click="Btn_AuditInventoryView_UpdateQuantity_Click" />
+                    <Button x:Name="Btn_AuditInventoryView_AuditInventory" Content="Audit Inventory" HorizontalAlignment="Left" VerticalAlignment="Top" Width="159" Canvas.Left="284" Canvas.Top="492" Height="50" FontSize="20" Click="Btn_AuditInventoryView_UpdateQuantity_Click" Visibility="Hidden" />
+
+                </Canvas>
+            </TabItem>
+            <TabItem x:Name="Tab_EditAItem" Header="EditAnItem">
+                <Canvas>
+                    <TextBlock x:Name="EditAnItemView_Title" Canvas.Left="10" Canvas.Top="10" HorizontalAlignment="Center" VerticalAlignment="Center" Height="28" Width="709" FontWeight="Bold" TextDecorations="Underline" FontSize="20" Text="Edit An Item" TextAlignment="Center" />
+                    <TextBlock x:Name="EditAnItemView_label_UPC" Canvas.Left="60" Canvas.Top="70" Height="30" Width="170" FontSize="20" >UPC:</TextBlock>
+                    <TextBlock x:Name="EditAnItemView_label_Name" Canvas.Left="60" Canvas.Top="105" FontSize="20" Height="30" Width="170" >Name/Description:</TextBlock>
+                    <TextBlock x:Name="EditAnItemView_label_Vendor" Canvas.Left="60" Canvas.Top="140" FontSize="20" Height="30" Width="170" ><Run Text="Vendor:"/></TextBlock>
+                    <TextBlock x:Name="EditAnItemView_label_ActiveStatus" Canvas.Left="60" Canvas.Top="251" RenderTransformOrigin="0.564,-0.138" FontSize="20" Height="30" Width="170" >Active:</TextBlock>
+                    <TextBlock x:Name="EditAnItemView_label_UnitCost" Canvas.Left="60" Canvas.Top="176" FontSize="20" Height="30" Width="170" >Unit Cost:</TextBlock>
+                    <TextBlock x:Name="EditAnItemView_label_RetailQuanity" Canvas.Left="59" Canvas.Top="218" FontSize="20" Height="30" Width="170" >Retail Cost:</TextBlock>
+                    <TextBlock x:Name="EditAnItemView_label_CurrentInstock" Canvas.Left="60" Canvas.Top="286" RenderTransformOrigin="0.564,-0.138" FontSize="20" Height="30" Width="170" ><Run Text="Quanity In Stock:"/></TextBlock>
+
+                    <TextBox x:Name="Input_EditAnItemView_UPC"  GotFocus="Input_EditAnItemViewEnterUPC_GotFocus" LostFocus="Input_ViewInventoryEnterUPC_LostFocus" PreviewTextInput="UPCInputValidaition" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="70" FontSize="20"/>
+                    <TextBox x:Name="Input_EditAnItemView_Name" Height="30" TextWrapping="Wrap" Width="300" Canvas.Left="251" Canvas.Top="105" FontSize="20" />
+                    <TextBox x:Name="Input_EditAnItemView_RetailCost" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="216" FontSize="20" />
+                    <TextBox x:Name="Input_EditAnItemView_UnitCost" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="176" FontSize="20" />
+                    <TextBox x:Name="Input_EditAnItemView_Active" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="251" FontSize="20" IsEnabled="False"/>
+                    <TextBox x:Name="Input_EditAnItemView_Vendor" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="139" FontSize="20"/>
+                    <Button x:Name="Btn_EditAnItemView_SearchUPC" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Top" Width="97" Canvas.Left="454" Canvas.Top="70" Height="30" FontSize="16" Click="Btn_EditAnItem_SearchUPC_Click"/>
+                    <Button x:Name="Btn_EditAnItemView_UpdateItems" Content="Update Item Data" HorizontalAlignment="Left" VerticalAlignment="Top" Width="216" Canvas.Left="284" Canvas.Top="492" Height="50" FontSize="20"  Click="Btn_EditAnItemView_UpdateItem_Click" Visibility="Hidden"/>
+
+                    <TextBox x:Name="Input_EditAnItemView_NumberInstock" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="286" FontSize="20" IsEnabled="False"/>
+                    <Button x:Name="Btn_EditAnItemView_OpositeActivate" Content="Deactivate" HorizontalAlignment="Left" VerticalAlignment="Top" Width="97" Canvas.Left="454" Canvas.Top="252" Height="30" FontSize="16"  Visibility="Hidden" Click="Btn_EditAnItemView_swapActivity"/>
 
                 </Canvas>
             </TabItem>
@@ -145,7 +170,7 @@
 
 
             </TabItem>
-            <Button x:Name="Btn_Restock_SearchUPC_Copy" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Top" Width="97" Height="30" FontSize="16" Click="Btn_Restock_SearchUPC_Click"/>
+
 
 
 
@@ -156,6 +181,7 @@
         <Button x:Name="Btn_ViewRestockInventoryTab" Content="Restock An Item" HorizontalAlignment="Left" Height="60" Margin="30,150,0,0" VerticalAlignment="Top" Width="130" Click="Btn_ViewRestockInventoryTab_Click"/>
         <Button x:Name="Btn_AuditItemQuanityTab" Content="Audit Item Quanity" HorizontalAlignment="Left" Height="60" Margin="30,250,0,0" VerticalAlignment="Top" Width="130" Click="Btn_AuditItemQuanityTab_Click"/>
         <Button x:Name="Btn_SettingsTab" Content="Settings" HorizontalAlignment="Left" Height="60" Margin="30,440,0,0" VerticalAlignment="Top" Width="130" Click="Btn_SettingsTab_Click"/>
+        <Button x:Name="Btn_EditAnItemTab" Content="Edit An Item's &#xD;&#xA;Information" HorizontalAlignment="Left" Height="60" Margin="30,344,0,0" VerticalAlignment="Top" Width="130" Click="Btn_EditAnItemTab_Click"/>
 
     </Grid>
 </Window>

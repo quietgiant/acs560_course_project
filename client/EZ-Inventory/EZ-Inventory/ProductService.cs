@@ -45,7 +45,7 @@ namespace EZ_Inventory
 
 
         }
-        public Product GetProductByUPC(string UPC)
+        public Product GetProductByUPC(string UPC,bool ShowWarningMessage)
         {
 
 
@@ -59,10 +59,11 @@ namespace EZ_Inventory
             catch {
                 if (temp == "sql: no rows in result set\n")
                 {
-
-                    string message = "Unable To Find Item. This UPC does not exist in the inventory.";
-                    string title = "Unable To Find Item";
-                    MessageBoxResult result = System.Windows.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+                    if (ShowWarningMessage ) {
+                        string message = "Unable To Find Item. This UPC does not exist in the inventory.";
+                        string title = "Unable To Find Item";
+                        MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                     return null;
                 }
                

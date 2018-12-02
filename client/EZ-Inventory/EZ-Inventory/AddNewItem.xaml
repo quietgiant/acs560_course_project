@@ -20,8 +20,8 @@
         <TextBox x:Name="Input_UnitCost" PreviewTextInput="DoubleValidaition" Height="26" TextWrapping="Wrap" Width="200" Canvas.Left="168" Canvas.Top="195"/>
         <TextBlock x:Name="label_RetailPrice" TextWrapping="Wrap" Text="Retail Price:" VerticalAlignment="Top" Height="26" FontSize="14" Canvas.Left="29" Canvas.Top="240"/>
         <TextBox x:Name="Input_RetailPrice" PreviewTextInput="DoubleValidaition"  Height="26" TextWrapping="Wrap" Text="" Width="200" Canvas.Left="168" Canvas.Top="240"/>
-        <ListBox x:Name="Input_Vendor"  Height="30" Width="200" Canvas.Left="168" Canvas.Top="135"/>
         <Button x:Name="Button_AddItem" Content="Add Item" Width="100" Canvas.Left="153" Canvas.Top="351" Height="30" Click="Button_AddItem_Click"/>
+        <TextBox x:Name="Input_Vendor" Height="26" TextWrapping="Wrap" Text="" Width="200" Canvas.Left="168" Canvas.Top="139"/>
     </Canvas>
 
 
