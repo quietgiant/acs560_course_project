@@ -94,27 +94,45 @@
                     <TextBlock x:Name="RestockView_label_Name" Canvas.Left="60" Canvas.Top="105" FontSize="20" Height="30" Width="170" >Name/Description:</TextBlock>
                     <TextBlock x:Name="RestockView_label_Vendor" Canvas.Left="60" Canvas.Top="140" FontSize="20" Height="30" Width="170" ><Run Text="Vendor:"/></TextBlock>
                     <TextBlock x:Name="RestockView_label_ActiveStatus" Canvas.Left="60" Canvas.Top="251" RenderTransformOrigin="0.564,-0.138" FontSize="20" Height="30" Width="170" >Active</TextBlock>
-                    <TextBlock x:Name="RestockView_label_UnitCost" Canvas.Left="60" Canvas.Top="213" FontSize="20" Height="30" Width="170" >Unit Cost:</TextBlock>
-                    <TextBlock x:Name="RestockView_label_RetailQuanity" Canvas.Left="60" Canvas.Top="178" FontSize="20" Height="30" Width="170" >Retail Cost:</TextBlock>
+                    <TextBlock x:Name="RestockView_label_UnitCost" Canvas.Left="60" Canvas.Top="176" FontSize="20" Height="30" Width="170" >Unit Cost:</TextBlock>
+                    <TextBlock x:Name="RestockView_label_RetailQuanity" Canvas.Left="59" Canvas.Top="218" FontSize="20" Height="30" Width="170" >Retail Cost:</TextBlock>
                     <TextBlock x:Name="RestockView_label_QuantityInStock" Canvas.Left="112" Canvas.Top="309" Height="25" Width="180" FontSize="16" Text="Units Currently In Stock" FontWeight="Bold" />
                     <TextBlock x:Name="RestockView_label_QuantityInStock_Copy" Canvas.Left="435" Canvas.Top="309" Height="25" Width="180" FontSize="16" Text="Add Quantity" FontWeight="Bold" TextAlignment="Center" />
-                    <xctk:IntegerUpDown FormatString="N0" Value="0" PreviewTextInput="QuantityInputValidaition" DefaultValue="0"  Increment="1" Minimum="0"  Maximum="999" Canvas.Left="435" Canvas.Top="339" Height="78" Width="180" FontSize="48"/>
+                    <xctk:IntegerUpDown x:Name="Input_RestockView_ValidatedQuanity" FormatString="N0" Value="0" PreviewTextInput="QuantityInputValidaition" DefaultValue="0"  Increment="1" Minimum="0"  Maximum="999" Canvas.Left="435" Canvas.Top="339" Height="78" Width="180" FontSize="48"/>
                     <TextBox x:Name="Input_RestockView_UPC"  GotFocus="Input_RestockViewEnterUPC_GotFocus" LostFocus="Input_ViewInventoryEnterUPC_LostFocus" PreviewTextInput="UPCInputValidaition" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="70" FontSize="20"/>
                     <TextBox x:Name="Input_RestockView_Name" Height="30" TextWrapping="Wrap" Width="300" Canvas.Left="251" Canvas.Top="105" FontSize="20" IsEnabled="False"/>
-                    <TextBox x:Name="Input_RestockView_RetailCost" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="177" FontSize="20" IsEnabled="False"/>
-                    <TextBox x:Name="Input_RestockView_UnitCost" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="213" FontSize="20" IsEnabled="False"/>
+                    <TextBox x:Name="Input_RestockView_RetailCost" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="216" FontSize="20" IsEnabled="False"/>
+                    <TextBox x:Name="Input_RestockView_UnitCost" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="176" FontSize="20" IsEnabled="False"/>
                     <TextBox x:Name="Input_RestockView_Active" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="251" FontSize="20" IsEnabled="False"/>
                     <TextBox x:Name="Input_RestockView_Vendor" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="139" FontSize="20" IsEnabled="False"/>
-                    <Button x:Name="Btn_Restock_SearchUPC" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Top" Width="97" Canvas.Left="454" Canvas.Top="70" Height="30" FontSize="16" Click="Btn_Restock_SearchUPC_Click"/>
+                    <Button x:Name="Btn_RestockView_SearchUPC" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Top" Width="97" Canvas.Left="454" Canvas.Top="70" Height="30" FontSize="16" Click="Btn_Restock_SearchUPC_Click"/>
                     <TextBox x:Name="Input_RestockView_Instock" Height="78" TextWrapping="Wrap" Width="180" Canvas.Left="112" Canvas.Top="339" FontSize="48" IsEnabled="False" TextAlignment="Center"/>
-                    <Button x:Name="Btn_Restock_SearchUPC_Copy1" Content="Update Quanity" HorizontalAlignment="Left" VerticalAlignment="Top" Width="159" Canvas.Left="284" Canvas.Top="492" Height="50" FontSize="20" Click="Btn_Restock_SearchUPC_Click"/>
+                    <Button x:Name="Btn_RestockView_UpdateQuantity" Content="Update Quanity" HorizontalAlignment="Left" VerticalAlignment="Top" Width="159" Canvas.Left="284" Canvas.Top="492" Height="50" FontSize="20" Click="Btn_RestockView_UpdateQuantity_Click"/>
                 </Canvas>
             </TabItem>
 
             <TabItem x:Name="Tab_AuditItems" Header="AuditItems">
                 <Canvas>
                     <TextBlock x:Name="AuditInventoryView_Title" Canvas.Left="10" Canvas.Top="10" HorizontalAlignment="Center" VerticalAlignment="Center" Height="28" Width="709" FontWeight="Bold" TextDecorations="Underline" FontSize="20" Text="Audit Inventory" TextAlignment="Center" />
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">This is the Third tab.</TextBlock>
+                    <TextBlock x:Name="AuditInventoryView_label_UPC" Canvas.Left="60" Canvas.Top="70" Height="30" Width="170" FontSize="20" >UPC:</TextBlock>
+                    <TextBlock x:Name="AuditInventoryView_label_Name" Canvas.Left="60" Canvas.Top="105" FontSize="20" Height="30" Width="170" >Name/Description:</TextBlock>
+                    <TextBlock x:Name="AuditInventoryView_label_Vendor" Canvas.Left="60" Canvas.Top="140" FontSize="20" Height="30" Width="170" ><Run Text="Vendor:"/></TextBlock>
+                    <TextBlock x:Name="AuditInventoryView_label_ActiveStatus" Canvas.Left="60" Canvas.Top="251" RenderTransformOrigin="0.564,-0.138" FontSize="20" Height="30" Width="170" >Active</TextBlock>
+                    <TextBlock x:Name="AuditInventoryView_label_UnitCost" Canvas.Left="60" Canvas.Top="176" FontSize="20" Height="30" Width="170" >Unit Cost:</TextBlock>
+                    <TextBlock x:Name="AuditInventoryView_label_RetailQuanity" Canvas.Left="59" Canvas.Top="218" FontSize="20" Height="30" Width="170" >Retail Cost:</TextBlock>
+                    <TextBlock x:Name="AuditInventoryView_label_QuantityInStock" Canvas.Left="112" Canvas.Top="309" Height="25" Width="180" FontSize="16" Text="Units Currently In Stock" FontWeight="Bold" />
+                    <TextBlock x:Name="AuditInventoryView_label_QuantityInStock_Copy" Canvas.Left="435" Canvas.Top="309" Height="25" Width="180" FontSize="16" Text="Validated Quanity" FontWeight="Bold" TextAlignment="Center" />
+                    <xctk:IntegerUpDown x:Name="Input_AuditInventoryView_ValidatedQuanity" FormatString="N0" Value="0" PreviewTextInput="QuantityInputValidaition" DefaultValue="0"  Increment="1" Minimum="0"  Maximum="999" Canvas.Left="435" Canvas.Top="339" Height="78" Width="180" FontSize="48"/>
+                    <TextBox x:Name="Input_AuditInventoryView_UPC"  GotFocus="Input_AuditInventoryViewEnterUPC_GotFocus" LostFocus="Input_ViewInventoryEnterUPC_LostFocus" PreviewTextInput="UPCInputValidaition" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="70" FontSize="20"/>
+                    <TextBox x:Name="Input_AuditInventoryView_Name" Height="30" TextWrapping="Wrap" Width="300" Canvas.Left="251" Canvas.Top="105" FontSize="20" IsEnabled="False"/>
+                    <TextBox x:Name="Input_AuditInventoryView_RetailCost" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="216" FontSize="20" IsEnabled="False"/>
+                    <TextBox x:Name="Input_AuditInventoryView_UnitCost" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="176" FontSize="20" IsEnabled="False"/>
+                    <TextBox x:Name="Input_AuditInventoryView_Active" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="251" FontSize="20" IsEnabled="False"/>
+                    <TextBox x:Name="Input_AuditInventoryView_Vendor" Height="30" TextWrapping="Wrap" Width="160" Canvas.Left="251" Canvas.Top="139" FontSize="20" IsEnabled="False"/>
+                    <Button x:Name="Btn_AuditInventoryView_SearchUPC" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Top" Width="97" Canvas.Left="454" Canvas.Top="70" Height="30" FontSize="16" Click="Btn_AuditInventoryView_SearchUPC_Click"/>
+                    <TextBox x:Name="Input_AuditInventoryView_Instock" Height="78" TextWrapping="Wrap" Width="180" Canvas.Left="112" Canvas.Top="339" FontSize="48" IsEnabled="False" TextAlignment="Center"/>
+                    <Button x:Name="Btn_AuditInventoryView_AuditInventory" Content="Audit Inventory" HorizontalAlignment="Left" VerticalAlignment="Top" Width="159" Canvas.Left="284" Canvas.Top="492" Height="50" FontSize="20" Click="Btn_AuditInventoryView_UpdateQuantity_Click" />
+
                 </Canvas>
             </TabItem>
             <TabItem x:Name="Tab_Settings" Header="AuditItems">

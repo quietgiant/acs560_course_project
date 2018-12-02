@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace EZ_Inventory
 {
@@ -29,14 +30,14 @@ namespace EZ_Inventory
 
 
         }
-        public String CreateNewProduct(Product NewProduct)
+        public Product CreateNewProduct(Product NewProduct)
         {
 
             var Jsoncontent = JsonConvert.SerializeObject(NewProduct);
 
             HttpResponseMessage response = productClient.PostAsync("api/product", new StringContent(Jsoncontent, Encoding.UTF8, "application/json")).Result;
             var temp = response.Content.ReadAsStringAsync().Result;
-            var myStringStatus = JsonConvert.DeserializeObject<String>(response.Content.ReadAsStringAsync().Result);
+            var myStringStatus = JsonConvert.DeserializeObject<Product>(response.Content.ReadAsStringAsync().Result);
 
 
             // Call back that closes the form
@@ -51,11 +52,35 @@ namespace EZ_Inventory
             Product ProductsInStore = new Product();
             HttpResponseMessage response = productClient.GetAsync("api/product/"+UPC).Result;
             var temp = response.Content.ReadAsStringAsync().Result;
-            ProductsInStore = JsonConvert.DeserializeObject<Product>(response.Content.ReadAsStringAsync().Result);
+            try
+            {
+                ProductsInStore = JsonConvert.DeserializeObject<Product>(response.Content.ReadAsStringAsync().Result);
+            }
+            catch {
+                if (temp == "sql: no rows in result set\n")
+                {
 
+                    string message = "Unable To Find Item. This UPC does not exist in the inventory.";
+                    string title = "Unable To Find Item";
+                    MessageBoxResult result = System.Windows.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+                    return null;
+                }
+               
+            }
             return ProductsInStore;
 
         }
+        public Product UpdateProduct(Product NewProduct)
+        {
+            var Jsoncontent = JsonConvert.SerializeObject(NewProduct);
 
+            HttpResponseMessage response = productClient.PutAsync("api/product", new StringContent(Jsoncontent, Encoding.UTF8, "application/json")).Result;
+            var temp = response.Content.ReadAsStringAsync().Result;
+            var myStringStatus = JsonConvert.DeserializeObject<Product>(response.Content.ReadAsStringAsync().Result);
+
+
+            // Call back that closes the form
+            return myStringStatus;
+        }
     }
 }
