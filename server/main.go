@@ -38,6 +38,10 @@ func main() {
 	productRouter.HandleFunc("", controller.UpdateProduct(dataManager)).Methods("PUT")
 	productRouter.HandleFunc("/{id}", controller.DeleteProduct(dataManager)).Methods("DELETE")
 
+	var userRouter = apiRouter.PathPrefix("/user").Subrouter()
+	userRouter.HandleFunc("/register", controller.CreateProduct(dataManager)).Methods("POST")
+	userRouter.HandleFunc("/login", controller.UpdateProduct(dataManager)).Methods("POST")
+
 	port := ":" + config.Port
 	log.Info("Listening on port " + port + "...")
 	must(http.ListenAndServe(port, router))

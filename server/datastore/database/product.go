@@ -20,24 +20,28 @@ func (db *productStore) GetProductByUPC(upc int64) (product model.Product, err e
 
 func (db *productStore) CreateProduct(product model.Product) (err error) {
 	_, err = db.Exec(
-		"INSERT INTO products(upc, name, isactive, unitcost, retailprice) VALUES($1, $2, $3, $4, $5);",
+		"INSERT INTO products(upc, name, isactive, unitcost, retailprice, vendor, isactive) VALUES($1, $2, $3, $4, $5, $6, $7);",
 		product.UPC,
 		product.Name,
 		product.IsActive,
 		product.UnitCost,
 		product.RetailPrice,
+		product.Vendor,
+		product.IsActive,
 	)
 	return err
 }
 
 func (db *productStore) UpdateProduct(product model.Product) (err error) {
 	_, err = db.Exec(
-		"UPDATE products SET name=$1, unitcost=$2, retailprice=$3, unitsinstock=$4 where upc=$5;",
+		"UPDATE products SET name=$1, unitcost=$2, retailprice=$3, unitsinstock=$4, vendor=$6, isactive=$7 where upc=$5;",
 		product.Name,
 		product.UnitCost,
 		product.RetailPrice,
 		product.UnitsInStock,
 		product.UPC,
+		product.Vendor,
+		product.IsActive,
 	)
 	return err
 }
