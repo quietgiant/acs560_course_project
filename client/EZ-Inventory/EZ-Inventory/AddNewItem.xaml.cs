@@ -126,8 +126,8 @@ namespace EZ_Inventory
         private void Button_AddItem_Click(object sender, RoutedEventArgs e)
         {
             long UPC =0;
-            float UnitCost = (float) 0.00;
-            float RetailPrice = (float)0.00;
+            double UnitCost = (double) 0.00;
+            double RetailPrice = (double)0.00;
             string name = Input_Name.Text;
             string vendor = Input_Vendor.Text;
 
@@ -156,7 +156,7 @@ namespace EZ_Inventory
             }
             else
             {
-                UnitCost = float.Parse(Input_UnitCost.Text);
+                UnitCost = double.Parse(Input_UnitCost.Text);
             }
 
             if (!isTextboxValueAFloat(Input_RetailPrice))
@@ -168,7 +168,7 @@ namespace EZ_Inventory
             }
             else
             {
-                RetailPrice = float.Parse(Input_RetailPrice.Text);
+                RetailPrice = double.Parse(Input_RetailPrice.Text);
             }
             if (isTextboxValueAnInt(Input_UPC) && Input_Name.Text != "" && isTextboxValueAFloat(Input_UnitCost) && isTextboxValueAFloat(Input_RetailPrice))
             {

@@ -48,74 +48,125 @@ namespace EZ_Inventory
                 Input_ComPort.Text = "com4";
             }
         }
-     
-        public void callback_Input_ViewInventoryEnterUPC(string upc)
+
+
+        public void callback_Input_UpdateSearchUPCUI(string upc)
         {
             this.Dispatcher.Invoke(() =>
             {
-                Input_ViewInventoryEnterUPC.Text = upc;
+                TabItem ti = Tab_Main.SelectedItem as TabItem;
+                string TabName = ti.Name;
+                if (TabName == "Tab_ViewInventory")
+                {
+                    Input_ViewInventoryEnterUPC.Text = upc;
+                }
+
+                else if (TabName == "Tab_RestockItem")
+                {
+
+                    Input_RestockView_UPC.Text = upc;
+                }
+                else if (TabName == "Tab_AuditItems")
+                {
+
+                    Input_AuditInventoryView_UPC.Text = upc;
+                }
+                else if (TabName == "Tab_EditAItem")
+                {
+
+                    Input_EditAnItemView_UPC.Text = upc;
+                }
+
             });
 
         }
-        public void callback_Input_RestockViewEnterUPC(string upc)
+
+
+        public void callback_input_UpdateQuantityBy1(string UPC)
         {
+
+
             this.Dispatcher.Invoke(() =>
             {
-                Input_RestockView_UPC.Text = upc;
+                TabItem ti = Tab_Main.SelectedItem as TabItem;
+                string TabName = ti.Name;
+                if (TabName == "Tab_RestockItem")
+                {
+
+                    if (UPC == Input_RestockView_UPC.Text)
+                    {
+
+                        Input_RestockView_ValidatedQuanity.Text = (int.Parse(Input_RestockView_ValidatedQuanity.Text) + 1).ToString();
+
+                    }
+                    else
+                    {
+                        string message = "This UPC is different than the searched UPC";
+                        string title = "Unable To Update Quanity";
+                        MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else if (TabName == "Tab_AuditItems")
+                {
+
+                    if (UPC == Input_AuditInventoryView_UPC.Text)
+                    {
+
+                        Input_AuditInventoryView_ValidatedQuanity.Text = (int.Parse(Input_AuditInventoryView_ValidatedQuanity.Text) + 1).ToString();
+
+                    }
+                    else
+                    {
+                        string message = "This UPC is different than the searched UPC";
+                        string title = "Unable To Update Quanity";
+                        MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+               
             });
-
-        }
-        public void callback_Input_AuditInventoryEnterUPC(string upc)
-        {
-            this.Dispatcher.Invoke(() =>
-            {
-                Input_AuditInventoryView_UPC.Text = upc;
-            });
-
-        }
-        public void callback_Input_EditAnItemEnterUPC(string upc)
-        {
-            this.Dispatcher.Invoke(() =>
-            {
-                Input_EditAnItemView_UPC.Text = upc;
-            });
-
         }
 
-        private void Btn_ViewInventoryTab_Click(object sender, RoutedEventArgs e)
-        {
-            Tab_ViewInventory.IsSelected = true;
-            ProductService getItems = new ProductService();
-            try
-            {
-                List<Product> myProducts = getItems.getAllProducts();
 
-                //Grid_ItemsInInventory.DataContext = myProducts;
-                Grid_ItemsInInventory.ItemsSource = myProducts;
+
+        private void Btn_ChangeTab_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+            string ButtonName = btn.Name.ToString();
+            if(ButtonName == "Btn_ViewInventoryTab")
+            {
+                Tab_ViewInventory.IsSelected = true;
+                ProductService getItems = new ProductService();
+                try
+                {
+                    List<Product> myProducts = getItems.getAllProducts();
+
+                    //Grid_ItemsInInventory.DataContext = myProducts;
+                    Grid_ItemsInInventory.ItemsSource = myProducts;
+                }
+                catch
+                {
+
+                }
             }
-            catch
+            else if (ButtonName == "Btn_ViewRestockInventoryTab")
             {
-
+                Tab_RestockItem.IsSelected = true;
+            }
+            else if (ButtonName == "Btn_AuditItemQuanityTab")
+            {
+                Tab_AuditItems.IsSelected = true;
+            }
+            else if (ButtonName == "Btn_EditAnItemTab")
+            {
+                Tab_EditAItem.IsSelected = true;
+            }
+            else if (ButtonName == "Btn_SettingsTab")
+            {
+                Tab_Settings.IsSelected = true;
             }
 
-
-
         }
-        private void Btn_ViewRestockInventoryTab_Click(object sender, RoutedEventArgs e)
-        {
-            Tab_RestockItem.IsSelected = true;
-            
-        }
-        private void Btn_AuditItemQuanityTab_Click(object sender, RoutedEventArgs e)
-        {
-            Tab_AuditItems.IsSelected = true;
 
-        }
-        private void Btn_EditAnItemTab_Click(object sender, RoutedEventArgs e)
-        {
-            Tab_EditAItem.IsSelected = true;
-
-        }
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             // filter the results by each new char
@@ -152,42 +203,31 @@ namespace EZ_Inventory
             }
 
         }
-        private void Input_ViewInventoryEnterUPC_GotFocus(object sender, RoutedEventArgs e)
-        {
-            string ComPort = Input_ComPort.Text;
-            if (ComPort != null && ComPort != "")
-            {
-                 myBarcodeReader = new BarcodeReader(ComPort);
-                myBarcodeReader.activateBarcodeReadToTextBox(Input_ComPort, callback_Input_ViewInventoryEnterUPC);
-            }
-        }
-        private void Input_RestockViewEnterUPC_GotFocus(object sender, RoutedEventArgs e)
+
+
+ 
+        private void Input_Barcode_UpdateQuanity_GotFocus(object sender, RoutedEventArgs e)
         {
             string ComPort = Input_ComPort.Text;
             if (ComPort != null && ComPort != "")
             {
                 myBarcodeReader = new BarcodeReader(ComPort);
-                myBarcodeReader.activateBarcodeReadToTextBox(Input_ComPort, callback_Input_RestockViewEnterUPC);
+                myBarcodeReader.activateBarcodeReadToTextBox(Input_ComPort, callback_input_UpdateQuantityBy1);
             }
         }
-        private void Input_AuditInventoryViewEnterUPC_GotFocus(object sender, RoutedEventArgs e)
+
+
+
+        private void Input_SearchForUPC_GotFocus(object sender, RoutedEventArgs e)
         {
             string ComPort = Input_ComPort.Text;
             if (ComPort != null && ComPort != "")
             {
                 myBarcodeReader = new BarcodeReader(ComPort);
-                myBarcodeReader.activateBarcodeReadToTextBox(Input_ComPort, callback_Input_AuditInventoryEnterUPC);
+                myBarcodeReader.activateBarcodeReadToTextBox(Input_ComPort, callback_Input_UpdateSearchUPCUI);
             }
         }
-        private void Input_EditAnItemViewEnterUPC_GotFocus(object sender, RoutedEventArgs e)
-        {
-            string ComPort = Input_ComPort.Text;
-            if (ComPort != null && ComPort != "")
-            {
-                myBarcodeReader = new BarcodeReader(ComPort);
-                myBarcodeReader.activateBarcodeReadToTextBox(Input_ComPort, callback_Input_EditAnItemEnterUPC);
-            }
-        }
+      
         private void Btn_AddItem_Click(object sender, RoutedEventArgs e)
         {
 
@@ -197,11 +237,7 @@ namespace EZ_Inventory
 
         }
 
-        private void Btn_SettingsTab_Click(object sender, RoutedEventArgs e)
-        {
-            Tab_Settings.IsSelected = true;
-            
-        }
+    
 
         private void Btn_saveSettings_Click(object sender, RoutedEventArgs e)
         {
